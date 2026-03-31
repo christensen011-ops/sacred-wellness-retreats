@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
 
 const theme = {
   sand: "#F5EFE0",
@@ -310,7 +311,8 @@ const testimonials = [
 ];
 
 // ─── NAV ──────────────────────────────────────────────────────────────────────
-function Nav({ page, setPage }) {
+function Nav() {
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -318,7 +320,7 @@ function Nav({ page, setPage }) {
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
-  const nav = (p) => { setPage(p); setMenuOpen(false); window.scrollTo(0, 0); };
+  const nav = (path) => { navigate(path); setMenuOpen(false); window.scrollTo(0, 0); };
 
   return (
     <>
@@ -331,26 +333,22 @@ function Nav({ page, setPage }) {
         padding: "0 24px",
       }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
-          <button onClick={() => nav("home")} style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
+          <button onClick={() => nav("/")} style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
             <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.3rem", fontWeight: 500, color: scrolled || menuOpen ? theme.charcoal : theme.cream, letterSpacing: "0.03em", lineHeight: 1.1 }}>
               Sacred<br /><span style={{ fontWeight: 300, fontStyle: "italic" }}>Wellness Retreats</span>
             </div>
           </button>
-          {/* Desktop nav */}
           <nav style={{ display: "flex", gap: 36, alignItems: "center" }}>
-            {[["home","Home"],["retreats","Retreats"],["about","About"],["contact","Contact"]].map(([p,label]) => (
-              <button key={p} onClick={() => nav(p)} style={{
+            {[["/","Home"],["/retreats","Retreats"],["/about","About"],["/contact","Contact"]].map(([path,label]) => (
+              <button key={path} onClick={() => nav(path)} style={{
                 background: "none", border: "none", cursor: "pointer",
                 fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem",
                 letterSpacing: "0.15em", textTransform: "uppercase",
-                color: scrolled ? (page===p ? theme.olive : theme.charcoal) : (page===p ? theme.accent : "rgba(255,255,255,0.85)"),
-                fontWeight: page===p ? 500 : 400,
-                transition: "color 0.2s",
-                display: "none",
+                color: scrolled ? theme.charcoal : "rgba(255,255,255,0.85)",
+                fontWeight: 400, transition: "color 0.2s", display: "none",
               }} className="desktop-nav-item">{label}</button>
             ))}
-            <button className="btn-primary desktop-nav-item" onClick={() => nav("apply")} style={{ padding: "10px 22px", fontSize: "0.75rem" }}>Apply Now</button>
-            {/* Hamburger */}
+            <button className="btn-primary desktop-nav-item" onClick={() => nav("/apply")} style={{ padding: "10px 22px", fontSize: "0.75rem" }}>Apply Now</button>
             <button onClick={() => setMenuOpen(!menuOpen)} style={{
               background: "none", border: "none", cursor: "pointer", padding: 4,
               display: "flex", flexDirection: "column", gap: 5, justifyContent: "center",
@@ -362,7 +360,6 @@ function Nav({ page, setPage }) {
           </nav>
         </div>
       </header>
-      {/* Mobile Menu */}
       <div style={{
         position: "fixed", top: 68, left: 0, right: 0, zIndex: 99,
         background: "rgba(250,247,242,0.98)", backdropFilter: "blur(12px)",
@@ -373,12 +370,11 @@ function Nav({ page, setPage }) {
         transition: "all 0.4s ease",
       }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          {[["home","Home"],["retreats","Retreats"],["about","About"],["contact","Contact"],["apply","Apply Now"]].map(([p,label]) => (
-            <button key={p} onClick={() => nav(p)} style={{
+          {[["/","Home"],["/retreats","Retreats"],["/about","About"],["/contact","Contact"],["/apply","Apply Now"]].map(([path,label]) => (
+            <button key={path} onClick={() => nav(path)} style={{
               background: "none", border: "none", cursor: "pointer", textAlign: "left",
               fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 300,
-              color: page===p ? theme.olive : theme.charcoal,
-              padding: "10px 0", borderBottom: `1px solid ${theme.beige}`,
+              color: theme.charcoal, padding: "10px 0", borderBottom: `1px solid ${theme.beige}`,
               transition: "color 0.2s",
             }}>{label}</button>
           ))}
@@ -407,7 +403,8 @@ function Nav({ page, setPage }) {
 }
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
-function Hero({ setPage }) {
+function Hero() {
+  const navigate = useNavigate();
   return (
     <div style={{ position: "relative", height: "100vh", minHeight: 600, overflow: "hidden" }}>
       <div style={{
@@ -427,8 +424,8 @@ function Hero({ setPage }) {
           5-day curated wellness retreats designed for nervous system reset, clarity, and deep restoration.
         </p>
         <div className="fade-in delay-3" style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
-          <button className="btn-primary" onClick={() => { setPage("retreats"); window.scrollTo(0,0); }}>View Retreat Dates</button>
-          <button className="btn-outline" onClick={() => { setPage("apply"); window.scrollTo(0,0); }}>Apply Now</button>
+          <button className="btn-primary" onClick={() => { navigate("/retreats"); window.scrollTo(0,0); }}>View Retreat Dates</button>
+          <button className="btn-outline" onClick={() => { navigate("/apply"); window.scrollTo(0,0); }}>Apply Now</button>
         </div>
       </div>
       <div style={{ position: "absolute", bottom: 40, left: "50%", transform: "translateX(-50%)", zIndex: 2 }}>
@@ -498,7 +495,8 @@ function Testimonials() {
 }
 
 // ─── RETREAT CARD ─────────────────────────────────────────────────────────────
-function RetreatCard({ retreat, setPage, setSelectedRetreat }) {
+function RetreatCard({ retreat }) {
+  const navigate = useNavigate();
   return (
     <div style={{ background: theme.white, overflow: "hidden", transition: "transform 0.3s", cursor: "pointer" }}
       onMouseEnter={e => e.currentTarget.style.transform = "translateY(-4px)"}
@@ -517,7 +515,7 @@ function RetreatCard({ retreat, setPage, setSelectedRetreat }) {
         </div>
         <p style={{ fontSize: "0.75rem", color: theme.stone, marginBottom: 12, fontStyle: "italic" }}>✈ Flights not included</p>
         <p style={{ fontSize: "0.87rem", color: theme.stone, lineHeight: 1.6, marginBottom: 24 }}>{retreat.tagline}</p>
-        <button className="btn-dark-outline" style={{ width: "100%", textAlign: "center" }} onClick={() => { setSelectedRetreat(retreat); setPage("retreat-detail"); window.scrollTo(0,0); }}>
+        <button className="btn-dark-outline" style={{ width: "100%", textAlign: "center" }} onClick={() => { navigate(`/retreat/${retreat.id}`); window.scrollTo(0,0); }}>
           View Retreat
         </button>
       </div>
@@ -526,10 +524,11 @@ function RetreatCard({ retreat, setPage, setSelectedRetreat }) {
 }
 
 // ─── HOME PAGE ────────────────────────────────────────────────────────────────
-function HomePage({ setPage, setSelectedRetreat }) {
+function HomePage() {
+  const navigate = useNavigate();
   return (
     <>
-      <Hero setPage={setPage} />
+      <Hero />
       <Pillars />
       <section style={{ background: theme.sand, padding: "80px 24px" }}>
         <div className="container">
@@ -538,10 +537,10 @@ function HomePage({ setPage, setSelectedRetreat }) {
               <span className="section-label">Upcoming Retreats</span>
               <h2 className="section-title" style={{ marginBottom: 0 }}>Find Your Reset</h2>
             </div>
-            <button className="btn-dark-outline" onClick={() => { setPage("retreats"); window.scrollTo(0,0); }}>View All Dates</button>
+            <button className="btn-dark-outline" onClick={() => { navigate("/retreats"); window.scrollTo(0,0); }}>View All Dates</button>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 28 }}>
-            {retreats.map(r => <RetreatCard key={r.id} retreat={r} setPage={setPage} setSelectedRetreat={setSelectedRetreat} />)}
+            {retreats.map(r => <RetreatCard key={r.id} retreat={r} />)}
           </div>
         </div>
       </section>
@@ -573,7 +572,7 @@ function HomePage({ setPage, setSelectedRetreat }) {
             Spots are limited.<br /><em>Your reset is waiting.</em>
           </h2>
           <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.95rem", marginBottom: 40, maxWidth: 400, margin: "0 auto 40px" }}>Apply to join our next retreat and begin your journey back to yourself.</p>
-          <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { setPage("apply"); window.scrollTo(0,0); }}>Apply Now</button>
+          <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { navigate("/apply"); window.scrollTo(0,0); }}>Apply Now</button>
         </div>
       </section>
     </>
@@ -581,7 +580,7 @@ function HomePage({ setPage, setSelectedRetreat }) {
 }
 
 // ─── RETREATS PAGE ────────────────────────────────────────────────────────────
-function RetreatsPage({ setPage, setSelectedRetreat }) {
+function RetreatsPage() {
   return (
     <>
       <div style={{ background: theme.oliveDark, padding: "140px 24px 80px", textAlign: "center" }}>
@@ -592,7 +591,7 @@ function RetreatsPage({ setPage, setSelectedRetreat }) {
       <section style={{ background: theme.cream, padding: "80px 24px" }}>
         <div className="container">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 32 }}>
-            {retreats.map(r => <RetreatCard key={r.id} retreat={r} setPage={setPage} setSelectedRetreat={setSelectedRetreat} />)}
+            {retreats.map(r => <RetreatCard key={r.id} retreat={r} />)}
           </div>
         </div>
       </section>
@@ -602,7 +601,10 @@ function RetreatsPage({ setPage, setSelectedRetreat }) {
 }
 
 // ─── RETREAT DETAIL PAGE ──────────────────────────────────────────────────────
-function RetreatDetailPage({ retreat, setPage }) {
+function RetreatDetailPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const retreat = retreats.find(r => r.id === parseInt(id)) || retreats[0];
   const [openDay, setOpenDay] = useState(null);
   const [stickyVisible, setStickyVisible] = useState(false);
   useEffect(() => {
@@ -631,7 +633,7 @@ function RetreatDetailPage({ retreat, setPage }) {
               <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.9rem" }}>or</span>
               <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: theme.accent }}>{retreat.deposit} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: "rgba(255,255,255,0.6)" }}>to reserve your spot today</span></span>
             </div>
-            <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { setPage("booking"); window.scrollTo(0,0); }}>Reserve Your Spot</button>
+            <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>Reserve Your Spot</button>
           </div>
         </div>
       </div>
@@ -765,7 +767,7 @@ function RetreatDetailPage({ retreat, setPage }) {
           </div>
 
           <div style={{ textAlign: "center", paddingTop: 20 }}>
-            <button className="btn-primary" style={{ fontSize: "0.9rem", padding: "16px 48px" }} onClick={() => { setPage("booking"); window.scrollTo(0,0); }}>
+            <button className="btn-primary" style={{ fontSize: "0.9rem", padding: "16px 48px" }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>
               Reserve Your Spot
             </button>
             <p style={{ fontSize: "0.82rem", color: theme.stone, marginTop: 12 }}>
@@ -788,7 +790,7 @@ function RetreatDetailPage({ retreat, setPage }) {
           <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.8rem", color: "rgba(255,255,255,0.6)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{retreat.name}</p>
           <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", color: theme.white }}>{retreat.dates} · <span style={{ color: theme.accent }}>{retreat.deposit} deposit</span> · {retreat.price} full</p>
         </div>
-        <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { setPage("booking"); window.scrollTo(0,0); }}>Book Now</button>
+        <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>Book Now</button>
       </div>
     </>
   );
@@ -801,9 +803,12 @@ const stripeLinks = {
   3: { deposit: "https://buy.stripe.com/aFa14o9Ct5qnbDk92O4800a", full: "https://buy.stripe.com/6oU8wQ15Xf0X5eW2Eq4800b" },
 };
 
-function BookingPage({ selectedRetreat }) {
+function BookingPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const retreatId = parseInt(id) || 2;
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState({ retreat: selectedRetreat?.id || 1, name: "", email: "", phone: "", guests: 1, payment: "deposit" });
+  const [form, setForm] = useState({ retreat: retreatId, name: "", email: "", phone: "", guests: 1, payment: "deposit" });
 
   const upd = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
@@ -924,7 +929,8 @@ function BookingPage({ selectedRetreat }) {
 }
 
 // ─── CONFIRMATION PAGE ────────────────────────────────────────────────────────
-function ConfirmationPage({ setPage }) {
+function ConfirmationPage() {
+  const navigate = useNavigate();
   return (
     <div style={{ minHeight: "100vh", background: theme.oliveDark, display: "flex", alignItems: "center", justifyContent: "center", padding: "120px 24px 60px" }}>
       <div style={{ textAlign: "center", maxWidth: 560 }}>
@@ -960,14 +966,15 @@ function ConfirmationPage({ setPage }) {
           Join Our WhatsApp Community
         </a>
         <br />
-        <button className="btn-outline" style={{ marginTop: 8 }} onClick={() => { setPage("home"); window.scrollTo(0,0); }}>Back to Home</button>
+        <button className="btn-outline" style={{ marginTop: 8 }} onClick={() => { navigate("/"); window.scrollTo(0,0); }}>Back to Home</button>
       </div>
     </div>
   );
 }
 
 // ─── ABOUT PAGE ───────────────────────────────────────────────────────────────
-function AboutPage({ setPage }) {
+function AboutPage() {
+  const navigate = useNavigate();
   return (
     <>
       <div style={{ background: theme.oliveDark, padding: "140px 24px 80px" }}>
@@ -1023,7 +1030,7 @@ function AboutPage({ setPage }) {
             ))}
           </div>
           <div style={{ textAlign: "center" }}>
-            <button className="btn-primary" onClick={() => { setPage("retreats"); window.scrollTo(0,0); }}>Explore Retreats</button>
+            <button className="btn-primary" onClick={() => { navigate("/retreats"); window.scrollTo(0,0); }}>Explore Retreats</button>
           </div>
         </div>
       </section>
@@ -1188,8 +1195,9 @@ function ContactPage() {
 }
 
 // ─── FOOTER ───────────────────────────────────────────────────────────────────
-function Footer({ setPage }) {
-  const nav = p => { setPage(p); window.scrollTo(0,0); };
+function Footer() {
+  const navigate = useNavigate();
+  const nav = p => { navigate(p); window.scrollTo(0,0); };
   return (
     <footer style={{ background: theme.charcoal, color: "rgba(255,255,255,0.5)", padding: "60px 24px 40px" }}>
       <div className="container">
@@ -1200,7 +1208,7 @@ function Footer({ setPage }) {
           </div>
           <div>
             <p style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginBottom: 16 }}>Navigate</p>
-            {[["home","Home"],["retreats","Retreats"],["about","About"],["apply","Apply"],["contact","Contact"]].map(([p,l]) => (
+            {[["/","Home"],["/retreats","Retreats"],["/about","About"],["/apply","Apply"],["/contact","Contact"]].map(([p,l]) => (
               <button key={p} onClick={() => nav(p)} style={{ display: "block", background: "none", border: "none", cursor: "pointer", fontSize: "0.87rem", color: "rgba(255,255,255,0.5)", marginBottom: 10, textAlign: "left", transition: "color 0.2s" }}
                 onMouseEnter={e => e.target.style.color = theme.white}
                 onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.5)"}>{l}</button>
@@ -1214,9 +1222,7 @@ function Footer({ setPage }) {
               display: "inline-flex", alignItems: "center", gap: 8,
               color: "#25D366", fontSize: "0.87rem", textDecoration: "none", marginTop: 4
             }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               WhatsApp
             </a>
           </div>
@@ -1224,9 +1230,9 @@ function Footer({ setPage }) {
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 28, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
           <p style={{ fontSize: "0.75rem" }}>© 2026 Sacred Wellness Retreats. All rights reserved.</p>
           <p style={{ fontSize: "0.75rem" }}>
-            <button onClick={() => { setPage("privacy"); window.scrollTo(0,0); }} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.5)", fontSize: "0.75rem", textDecoration: "underline" }}>Privacy Policy</button>
+            <button onClick={() => nav("/privacy")} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.5)", fontSize: "0.75rem", textDecoration: "underline" }}>Privacy Policy</button>
             {" · "}
-            <button onClick={() => { setPage("terms"); window.scrollTo(0,0); }} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.5)", fontSize: "0.75rem", textDecoration: "underline" }}>Terms & Conditions</button>
+            <button onClick={() => nav("/terms")} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.5)", fontSize: "0.75rem", textDecoration: "underline" }}>Terms & Conditions</button>
           </p>
         </div>
       </div>
@@ -1235,7 +1241,8 @@ function Footer({ setPage }) {
 }
 
 // ─── PRIVACY POLICY PAGE ──────────────────────────────────────────────────────
-function PrivacyPage({ setPage }) {
+function PrivacyPage() {
+  const navigate = useNavigate();
   const sections = [
     {
       title: "Information We Collect",
@@ -1326,7 +1333,7 @@ To exercise any of these rights, please contact us at info@sacredwellnessretreat
             ))}
           </div>
           <div style={{ marginTop: 64, textAlign: "center" }}>
-            <button className="btn-dark-outline" onClick={() => { setPage("home"); window.scrollTo(0,0); }}>Back to Home</button>
+            <button className="btn-dark-outline" onClick={() => { navigate("/"); window.scrollTo(0,0); }}>Back to Home</button>
           </div>
         </div>
       </section>
@@ -1335,7 +1342,8 @@ To exercise any of these rights, please contact us at info@sacredwellnessretreat
 }
 
 // ─── TERMS PAGE ───────────────────────────────────────────────────────────────
-function TermsPage({ setPage }) {
+function TermsPage() {
+  const navigate = useNavigate();
   const sections = [
     {
       title: "Acceptance of Terms",
@@ -1425,7 +1433,7 @@ We strongly recommend that all guests obtain comprehensive travel and health ins
             ))}
           </div>
           <div style={{ marginTop: 64, textAlign: "center" }}>
-            <button className="btn-dark-outline" onClick={() => { setPage("home"); window.scrollTo(0,0); }}>Back to Home</button>
+            <button className="btn-dark-outline" onClick={() => { navigate("/"); window.scrollTo(0,0); }}>Back to Home</button>
           </div>
         </div>
       </section>
@@ -1433,28 +1441,38 @@ We strongly recommend that all guests obtain comprehensive travel and health ins
   );
 }
 
-export default function App() {
-  const [page, setPage] = useState("home");
-  const [selectedRetreat, setSelectedRetreat] = useState(retreats[0]);
-  useSEO(page);
-
+// ─── APP ──────────────────────────────────────────────────────────────────────
+function AppInner() {
+  const location = window.location.pathname;
+  useSEO(location === "/" ? "home" : location.replace("/",""));
   return (
     <>
       <style>{globalStyles}</style>
-      <Nav page={page} setPage={setPage} />
+      <Nav />
       <main>
-        {page === "home" && <HomePage setPage={setPage} setSelectedRetreat={setSelectedRetreat} />}
-        {page === "retreats" && <RetreatsPage setPage={setPage} setSelectedRetreat={setSelectedRetreat} />}
-        {page === "retreat-detail" && <RetreatDetailPage retreat={selectedRetreat} setPage={setPage} />}
-        {page === "booking" && <BookingPage selectedRetreat={selectedRetreat} />}
-        {page === "about" && <AboutPage setPage={setPage} />}
-        {page === "apply" && <ApplyPage />}
-        {page === "contact" && <ContactPage />}
-        {page === "privacy" && <PrivacyPage setPage={setPage} />}
-        {page === "terms" && <TermsPage setPage={setPage} />}
-        {page === "confirmation" && <ConfirmationPage setPage={setPage} />}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/retreats" element={<RetreatsPage />} />
+          <Route path="/retreat/:id" element={<RetreatDetailPage />} />
+          <Route path="/booking/:id" element={<BookingPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/apply" element={<ApplyPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/confirmation" element={<ConfirmationPage />} />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
       </main>
-      <Footer setPage={setPage} />
+      <Footer />
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppInner />
+    </BrowserRouter>
   );
 }
