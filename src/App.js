@@ -805,7 +805,6 @@ const stripeLinks = {
 
 function BookingPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const retreatId = parseInt(id) || 2;
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({ retreat: retreatId, name: "", email: "", phone: "", guests: 1, payment: "deposit" });
