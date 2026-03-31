@@ -932,7 +932,7 @@ function ConfirmationPage({ setPage }) {
         <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2rem, 5vw, 3.2rem)", fontWeight: 300, color: theme.white, marginBottom: 24, lineHeight: 1.2 }}>
           You're in — and we couldn't<br />be more excited to welcome you!
         </h1>
-        <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1rem", lineHeight: 1.8, marginBottom: 16, fontFamily: "'Cormorant Garamond',serif", fontStyle: "italic", fontSize: "1.15rem" }}>
+        <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1.15rem", lineHeight: 1.8, marginBottom: 16, fontFamily: "'Cormorant Garamond',serif", fontStyle: "italic" }}>
           "What you just did takes courage, and we honor that. Your journey with Sacred Wellness Retreats has officially begun."
         </p>
         <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.85rem", marginBottom: 48 }}>— Parmananda & the Sacred Wellness team</p>
