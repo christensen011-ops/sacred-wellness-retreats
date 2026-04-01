@@ -717,7 +717,7 @@ function RetreatDetailPage() {
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 20, color: theme.charcoal }}>Accommodations</h2>
             {retreat.id === 2 ? (
               <>
-                <div style={{ marginBottom: 32, height: 320, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1774921234/20171217-IMG_3004-scaled_fxjqqt.webp)`, backgroundSize: "cover", backgroundPosition: "center top" }} />
+                <div style={{ marginBottom: 32, height: 420, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1774921234/20171217-IMG_3004-scaled_fxjqqt.webp)`, backgroundSize: "cover", backgroundPosition: "center center" }} />
                 <p style={{ fontSize: "0.92rem", color: theme.stone, lineHeight: 1.8, marginBottom: 28 }}>
                   You'll be staying in private thatched-roof cabanas nestled in a lush tropical garden. Each cabana is a self-contained sanctuary — cool, quiet, and surrounded by nature.
                 </p>
