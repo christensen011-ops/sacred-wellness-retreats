@@ -709,7 +709,15 @@ function RetreatDetailPage() {
           <div>
             <span className="section-label">Overview</span>
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 20, color: theme.charcoal }}>Your Transformation Awaits</h2>
-            <p style={{ fontSize: "1rem", lineHeight: 1.8, color: theme.stone }}>{retreat.description}</p>
+            {retreat.id === 4 ? (
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr", gap: 24, alignItems: "center" }}>
+                <div style={{ height: 320, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782368918/Screenshot_2026-06-25_012748_zi2arv.png)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                <p style={{ fontSize: "1rem", lineHeight: 1.8, color: theme.stone }}>{retreat.description}</p>
+                <div style={{ height: 320, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782368912/Screenshot_2026-06-25_012805_wbsscd.png)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+              </div>
+            ) : (
+              <p style={{ fontSize: "1rem", lineHeight: 1.8, color: theme.stone }}>{retreat.description}</p>
+            )}
           </div>
           <hr className="divider" />
           {/* Experience */}
@@ -731,14 +739,13 @@ function RetreatDetailPage() {
             <div>
               <span className="section-label">The Experience</span>
               <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 24, color: theme.charcoal }}>A Glimpse of What Awaits</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16, marginBottom: 16 }}>
-                <div style={{ height: 280, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1779915580/IMG_5525_hz1e7g.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
-                <div style={{ height: 280, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1779915581/IMG_5526_yongse.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+                <div style={{ height: 300, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336873/IMG_5900_p1f2im.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                <div style={{ height: 300, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1779915581/IMG_5526_yongse.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
-                <div style={{ height: 280, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1779912156/IMG_4277_usnsh6.heic)`, backgroundSize: "cover", backgroundPosition: "center" }} />
-                <div style={{ height: 280, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336885/IMG_5901_lo5baq.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
-                <div style={{ height: 280, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336901/IMG_5903_zud3te.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <div style={{ height: 300, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336885/IMG_5901_lo5baq.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                <div style={{ height: 300, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336901/IMG_5903_zud3te.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
               </div>
             </div>
           )}
@@ -749,19 +756,19 @@ function RetreatDetailPage() {
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 16, color: theme.charcoal }}>What's Included</h2>
             {retreat.id === 4 && (
               <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 28 }}>
-                <a href="https://buy.stripe.com/14A6oI9Ct9GD4aSa6S4800e" target="_blank" rel="noopener noreferrer" style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.olive}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
+                <a href="/booking/4" style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.olive}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
                   onMouseEnter={e => e.currentTarget.style.background = theme.beige}
                   onMouseLeave={e => e.currentTarget.style.background = theme.sand}>
                   <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.stone, marginBottom: 4 }}>Solo — Click to Book</p>
                   <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.5rem", color: theme.olive }}>{retreat.price} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>/ person</span></p>
                 </a>
-                <a href="https://buy.stripe.com/3cIbJ2dSJ063cHoen84800g" target="_blank" rel="noopener noreferrer" style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.accent}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
+                <a href="/booking/4" style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.accent}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
                   onMouseEnter={e => e.currentTarget.style.background = theme.beige}
                   onMouseLeave={e => e.currentTarget.style.background = theme.sand}>
                   <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.stone, marginBottom: 4 }}>Couples — Save $800</p>
                   <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.5rem", color: theme.olive }}>{retreat.couplePrice} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>/ couple</span></p>
                 </a>
-                <a href="https://buy.stripe.com/eVqbJ2g0R2ebbDkcf04800f" target="_blank" rel="noopener noreferrer" style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.bark}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
+                <a href="/booking/4" style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.bark}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
                   onMouseEnter={e => e.currentTarget.style.background = theme.beige}
                   onMouseLeave={e => e.currentTarget.style.background = theme.sand}>
                   <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.stone, marginBottom: 4 }}>Deposit to Reserve</p>
