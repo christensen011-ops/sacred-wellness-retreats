@@ -240,9 +240,10 @@ const retreats = [
     deposit: "$800",
     tagline: "Six nights between colonial Oaxaca and the sacred mountains of the Sierra Sur.",
     image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336873/IMG_5900_p1f2im.jpg",
-    description: "Begin in the vibrant colonial city of Oaxaca — its baroque churches, world-renowned cuisine, and living indigenous culture setting the stage for what's to come. On Day 3, a private van carries you up into the Sierra Sur mountains to San José del Pacífico, perched at 8,200 feet among ancient pine forest and sweeping valley views. You'll stay in cozy private cabanas, hike sacred mountain trails, eat delicious home-cooked meals, and be guided through meditation and inner practice every step of the way. Completely all-inclusive. Intentionally small — limited to 8 guests.",
+    description: "Begin in the vibrant colonial city of Oaxaca — its baroque churches, world-renowned cuisine, and living indigenous culture setting the stage for what's to come. On Day 2, a private van carries you up into the Sierra Sur mountains to San José del Pacífico, perched at 8,200 feet among ancient pine forest and sweeping valley views. You'll stay in cozy private cabanas, hike sacred mountain trails, eat delicious home-cooked meals, and be guided through meditation and inner practice every step of the way. Completely all-inclusive. Intentionally small — limited to 8 guests.",
     included: [
       "6 nights accommodation — 1 night Oaxaca City, 4 nights mountain cabanas in San José del Pacífico, 1 night Oaxaca City",
+      "Airport pickup on arrival and drop-off on departure day (Oaxaca City — OAX)",
       "All meals — delicious home-cooked food throughout",
       "Private van transportation Oaxaca City ↔ San José del Pacífico",
       "Guided meditation sessions daily",
@@ -549,11 +550,11 @@ function RetreatCard({ retreat }) {
           <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.bark, marginBottom: 12 }}>Coming 2027</p>
           <p style={{ fontSize: "0.87rem", color: theme.stone, lineHeight: 1.6, marginBottom: 20 }}>{retreat.tagline}</p>
           <p style={{ fontSize: "0.82rem", color: theme.stone, lineHeight: 1.7, marginBottom: 24 }}>{retreat.description}</p>
-          <a href="mailto:info@sacredwellnessretreats.com?subject=Belize 2027 Waitlist — Please add me" style={{ display: "block", textAlign: "center", background: "transparent", border: `1px solid ${theme.bark}`, color: theme.bark, fontFamily: "'DM Sans',sans-serif", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "13px 24px", textDecoration: "none", transition: "all 0.3s" }}
+          <button onClick={() => { navigate("/contact"); window.scrollTo(0,0); }} style={{ display: "block", width: "100%", textAlign: "center", background: "transparent", border: `1px solid ${theme.bark}`, color: theme.bark, fontFamily: "'DM Sans',sans-serif", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "13px 24px", cursor: "pointer", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = theme.bark; e.currentTarget.style.color = theme.cream; }}
             onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = theme.bark; }}>
             Join the Waitlist
-          </a>
+          </button>
         </div>
       </div>
     );
@@ -710,11 +711,19 @@ function RetreatDetailPage() {
             <span className="section-label">Overview</span>
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 20, color: theme.charcoal }}>Your Transformation Awaits</h2>
             {retreat.id === 4 ? (
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr", gap: 24, alignItems: "center" }}>
-                <div style={{ height: 320, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782368918/Screenshot_2026-06-25_012748_zi2arv.png)`, backgroundSize: "cover", backgroundPosition: "center" }} />
-                <p style={{ fontSize: "1rem", lineHeight: 1.8, color: theme.stone }}>{retreat.description}</p>
-                <div style={{ height: 320, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782368912/Screenshot_2026-06-25_012805_wbsscd.png)`, backgroundSize: "cover", backgroundPosition: "center" }} />
-              </div>
+              <>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr", gap: 24, alignItems: "center" }} className="pine-layout">
+                  <div style={{ height: 320, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782368918/Screenshot_2026-06-25_012748_zi2arv.png)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                  <p style={{ fontSize: "1rem", lineHeight: 1.8, color: theme.stone }}>{retreat.description}</p>
+                  <div style={{ height: 320, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782368912/Screenshot_2026-06-25_012805_wbsscd.png)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                </div>
+                <style>{`
+                  @media (max-width: 600px) {
+                    .pine-layout { grid-template-columns: 1fr !important; }
+                    .pine-layout > div { height: 200px !important; }
+                  }
+                `}</style>
+              </>
             ) : (
               <p style={{ fontSize: "1rem", lineHeight: 1.8, color: theme.stone }}>{retreat.description}</p>
             )}
@@ -723,7 +732,7 @@ function RetreatDetailPage() {
           {/* Experience */}
           <div>
             <span className="section-label">What You'll Experience</span>
-            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 28, color: theme.charcoal }}>Seven Days of Deep Restoration</h2>
+            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 28, color: theme.charcoal }}>Six Nights of Deep Restoration</h2>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 14 }}>
               {experiences.map((e, i) => (
                 <li key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start", fontSize: "0.95rem", color: theme.charcoal }}>
@@ -739,14 +748,20 @@ function RetreatDetailPage() {
             <div>
               <span className="section-label">The Experience</span>
               <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 24, color: theme.charcoal }}>A Glimpse of What Awaits</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
-                <div style={{ height: 300, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336873/IMG_5900_p1f2im.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
-                <div style={{ height: 300, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1779915581/IMG_5526_yongse.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12, marginBottom: 12 }}>
+                <div style={{ height: 260, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1779915580/IMG_5525_hz1e7g.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                <div style={{ height: 260, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1779915581/IMG_5526_yongse.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                <div style={{ height: 300, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336885/IMG_5901_lo5baq.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
-                <div style={{ height: 300, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336901/IMG_5903_zud3te.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
+                <div style={{ height: 260, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336885/IMG_5901_lo5baq.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                <div style={{ height: 260, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336901/IMG_5903_zud3te.jpg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
               </div>
+              <style>{`
+                @media (max-width: 600px) {
+                  .gallery-grid { grid-template-columns: 1fr !important; }
+                  .gallery-grid > div { height: 220px !important; }
+                }
+              `}</style>
             </div>
           )}
           <hr className="divider" />
