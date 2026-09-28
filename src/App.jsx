@@ -229,9 +229,36 @@ const globalStyles = `
 `;
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
+const oaxacaFAQ = [
+  ["Do I need experience with yoga or meditation?", "Not at all. Our practices are accessible for all levels, from complete beginners to seasoned practitioners."],
+  ["What is your cancellation policy?", "Full refund up to 60 days before the retreat. 50% refund 30–60 days out. No refunds within 30 days, though your spot can be transferred."],
+  ["Are meals included?", "Yes. All meals are included — plant-forward, nourishing, and prepared fresh daily."],
+  ["How many guests per retreat?", "We intentionally limit each retreat to a maximum of 8 guests for a deeply personal experience."],
+];
+
+const ascensionWeekendFAQ = [
+  ["Do I need experience with meditation?", "Not at all. Ascension is taught step by step and is accessible to complete beginners as well as experienced meditators — even children learn to ascend."],
+  ["Is lodging included?", "No — this is a day workshop. Lodging isn't included, but we're happy to share local accommodation recommendations once you register."],
+  ["Are meals included?", "Friday evening includes tea and light snacks. Saturday and Sunday meals are potluck-style — bring a dish to share with the group."],
+  ["Will there be yoga?", "Yes — gentle yoga sessions are offered alongside the Ascension teachings."],
+  ["What is your cancellation policy?", "Full refund up to 60 days before the workshop. 50% refund 30–60 days out. No refunds within 30 days, though your spot can be transferred."],
+];
+
+const ascensionImmersiveFAQ = [
+  ["Who is this retreat for?", "This immersive is open only to those who have already completed a First Sphere Ascension course and know how to ascend."],
+  ["Are meals included?", "Yes. Meals are shared and prepared by the group — each guest joins a cook team responsible for one night's dinner during the retreat, splitting the ingredients and prep with their teammates. Everyone participates over the course of the stay."],
+  ["Is there a guest limit?", "There's no fixed cap — group size is adjusted based on the venue."],
+  ["What's the difference between the 7-day and 10-day option?", "Both begin on the same day; the 10-day option simply extends your immersion by three additional days of practice and community."],
+  ["What is your cancellation policy?", "Full refund up to 60 days before the retreat. 50% refund 30–60 days out. No refunds within 30 days, though your spot can be transferred."],
+];
+
+const ascensionImage = "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774315508/Jesus_Ishaya_Group_ld6dne.png";
+
 const retreats = [
   {
     id: 4,
+    group: "oaxaca",
+    groupLabel: "Aug 2–8, 2027",
     name: "Magical Oaxaca & Sierra Sur Retreat",
     location: "Oaxaca City & San José del Pacífico, Mexico",
     dates: "Aug 2–8, 2027",
@@ -241,6 +268,8 @@ const retreats = [
     tagline: "Six nights between colonial Oaxaca and the sacred mountains of the Sierra Sur.",
     image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336873/IMG_5900_p1f2im.jpg",
     description: "Begin in the vibrant colonial city of Oaxaca — its baroque churches, world-renowned cuisine, and living indigenous culture setting the stage for what's to come. On Day 2, a private van carries you up into the Sierra Sur mountains to San José del Pacífico, perched at 8,200 feet among ancient pine forest and sweeping valley views. You'll stay in cozy private cabanas, hike sacred mountain trails, eat delicious home-cooked meals, and be guided through meditation and inner practice every step of the way. Completely all-inclusive. Intentionally small — limited to 8 guests.",
+    experienceHeading: "Six Nights of Deep Restoration",
+    experiencesList: ["Daily meditation & breathwork", "Yoga & mindful movement", "Nervous system regulation practices", "Group integration sessions", "Clean, nourishing meals", "1:1 somatic coaching session", "Nature immersions & ceremonies"],
     included: [
       "6 nights accommodation — 1 night Oaxaca City, 4 nights mountain cabanas in San José del Pacífico, 1 night Oaxaca City",
       "Airport pickup on arrival and drop-off on departure day (Oaxaca City — OAX)",
@@ -262,6 +291,7 @@ const retreats = [
         "We strongly recommend purchasing travel insurance before booking",
       ],
     },
+    faq: oaxacaFAQ,
     itinerary: [
       { day: "Aug 2 — Day 1", title: "Arrival in Oaxaca City", content: "Arrive in Oaxaca City, check in, group orientation and welcome dinner. Evening guided meditation to open the retreat." },
       { day: "Aug 3 — Day 2", title: "Into the Mountains", content: "Morning meditation, private van departs for San José del Pacífico — a scenic 3-hour journey up into the Sierra Sur. Settle into your mountain cabanas at 8,200 feet. Afternoon guided meditation with panoramic views. Welcome mountain dinner." },
@@ -274,6 +304,8 @@ const retreats = [
   },
   {
     id: 6,
+    group: "oaxaca",
+    groupLabel: "Aug 23–29, 2027",
     name: "Magical Oaxaca & Sierra Sur Retreat",
     location: "Oaxaca City & San José del Pacífico, Mexico",
     dates: "Aug 23–29, 2027",
@@ -283,6 +315,8 @@ const retreats = [
     tagline: "Six nights between colonial Oaxaca and the sacred mountains of the Sierra Sur.",
     image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336873/IMG_5900_p1f2im.jpg",
     description: "Begin in the vibrant colonial city of Oaxaca — its baroque churches, world-renowned cuisine, and living indigenous culture setting the stage for what's to come. On Day 2, a private van carries you up into the Sierra Sur mountains to San José del Pacífico, perched at 8,200 feet among ancient pine forest and sweeping valley views. You'll stay in cozy private cabanas, hike sacred mountain trails, eat delicious home-cooked meals, and be guided through meditation and inner practice every step of the way. Completely all-inclusive. Intentionally small — limited to 8 guests.",
+    experienceHeading: "Six Nights of Deep Restoration",
+    experiencesList: ["Daily meditation & breathwork", "Yoga & mindful movement", "Nervous system regulation practices", "Group integration sessions", "Clean, nourishing meals", "1:1 somatic coaching session", "Nature immersions & ceremonies"],
     included: [
       "6 nights accommodation — 1 night Oaxaca City, 4 nights mountain cabanas in San José del Pacífico, 1 night Oaxaca City",
       "Airport pickup on arrival and drop-off on departure day (Oaxaca City — OAX)",
@@ -304,6 +338,7 @@ const retreats = [
         "We strongly recommend purchasing travel insurance before booking",
       ],
     },
+    faq: oaxacaFAQ,
     itinerary: [
       { day: "Aug 23 — Day 1", title: "Arrival in Oaxaca City", content: "Arrive in Oaxaca City, check in, group orientation and welcome dinner. Evening guided meditation to open the retreat." },
       { day: "Aug 24 — Day 2", title: "Into the Mountains", content: "Morning meditation, private van departs for San José del Pacífico — a scenic 3-hour journey up into the Sierra Sur. Settle into your mountain cabanas at 8,200 feet. Afternoon guided meditation with panoramic views. Welcome mountain dinner." },
@@ -316,110 +351,158 @@ const retreats = [
   },
   {
     id: 1,
-    name: "Tulum Ascension Weekend",
+    group: "ascension-weekend",
+    groupLabel: "Tulum — Dec 4–6, 2026",
+    name: "First Sphere Ascension Weekend",
     location: "Tulum, Mexico",
     dates: "Dec 4–6, 2026",
     price: "$250",
     deposit: "$125",
-    tagline: "A weekend immersion in Ascension, the effortless meditation of the Ishayas — all levels welcome.",
-    image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774505031/TULUM2_zegncv.jpg",
-    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. This weekend immersive in Tulum introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
+    noLodging: true,
+    lodgingNote: "This is a day workshop — lodging isn't included. We're happy to share local accommodation recommendations for Tulum once you register.",
+    tagline: "The First Sphere Ascension course — open to complete beginners and experienced meditators alike. No prior experience required.",
+    image: ascensionImage,
+    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. This weekend immersive in Tulum introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice, alongside gentle yoga. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
+    experienceHeading: "A Weekend of Effortless Meditation",
+    experiencesList: ["Guided Ascension meditation instruction, all levels welcome", "Free Friday evening introduction session", "Full Saturday & Sunday training, 10am–6pm", "Gentle yoga sessions", "Community potluck-style meals Saturday & Sunday", "Tea and light snacks Friday evening"],
     included: [
-      "Free Friday evening introduction session, 6:45–8:30pm",
+      "Free Friday evening introduction session, 6:45–8:30pm (session continues informally for anyone who'd like to stay until 10pm)",
       "Full weekend of guided Ascension instruction — Saturday & Sunday, 10am–6pm",
+      "Gentle yoga sessions",
       "Personal instruction and all course materials",
-      "Community, potluck-style shared meals — bring a dish to share",
+      "Tea and light snacks Friday evening",
+      "Community potluck-style shared meals Saturday & Sunday — bring a dish to share",
     ],
     excluded: ["Lodging / accommodation", "Travel to and from the venue", "Personal expenses"],
+    faq: ascensionWeekendFAQ,
     itinerary: [
-      { day: "Friday", title: "Free Introduction", content: "A free introductory session open to all, no cost to attend. 6:45–8:30pm." },
-      { day: "Saturday", title: "Ascension Training", content: "A full day of guided Ascension instruction and practice. 10am–6pm." },
-      { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm." },
+      { day: "Friday", title: "Free Introduction", content: "A free introductory session open to all, no cost to attend. 6:45–8:30pm, with the class continuing informally for anyone who'd like to stay until 10pm. Tea and light snacks provided." },
+      { day: "Saturday", title: "Ascension Training", content: "A full day of guided Ascension instruction, practice, and gentle yoga. 10am–6pm. Potluck-style shared dinner." },
+      { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm. Potluck-style shared meal." },
     ],
   },
   {
     id: 5,
-    name: "Tulum Ascension Weekend",
+    group: "ascension-weekend",
+    groupLabel: "Tulum — Dec 18–20, 2026",
+    name: "First Sphere Ascension Weekend",
     location: "Tulum, Mexico",
     dates: "Dec 18–20, 2026",
     price: "$250",
     deposit: "$125",
-    tagline: "A weekend immersion in Ascension, the effortless meditation of the Ishayas — all levels welcome.",
-    image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774505031/TULUM2_zegncv.jpg",
-    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. This weekend immersive in Tulum introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
+    noLodging: true,
+    lodgingNote: "This is a day workshop — lodging isn't included. We're happy to share local accommodation recommendations for Tulum once you register.",
+    tagline: "The First Sphere Ascension course — open to complete beginners and experienced meditators alike. No prior experience required.",
+    image: ascensionImage,
+    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. This weekend immersive in Tulum introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice, alongside gentle yoga. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
+    experienceHeading: "A Weekend of Effortless Meditation",
+    experiencesList: ["Guided Ascension meditation instruction, all levels welcome", "Free Friday evening introduction session", "Full Saturday & Sunday training, 10am–6pm", "Gentle yoga sessions", "Community potluck-style meals Saturday & Sunday", "Tea and light snacks Friday evening"],
     included: [
-      "Free Friday evening introduction session, 6:45–8:30pm",
+      "Free Friday evening introduction session, 6:45–8:30pm (session continues informally for anyone who'd like to stay until 10pm)",
       "Full weekend of guided Ascension instruction — Saturday & Sunday, 10am–6pm",
+      "Gentle yoga sessions",
       "Personal instruction and all course materials",
-      "Community, potluck-style shared meals — bring a dish to share",
+      "Tea and light snacks Friday evening",
+      "Community potluck-style shared meals Saturday & Sunday — bring a dish to share",
     ],
     excluded: ["Lodging / accommodation", "Travel to and from the venue", "Personal expenses"],
+    faq: ascensionWeekendFAQ,
     itinerary: [
-      { day: "Friday", title: "Free Introduction", content: "A free introductory session open to all, no cost to attend. 6:45–8:30pm." },
-      { day: "Saturday", title: "Ascension Training", content: "A full day of guided Ascension instruction and practice. 10am–6pm." },
-      { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm." },
+      { day: "Friday", title: "Free Introduction", content: "A free introductory session open to all, no cost to attend. 6:45–8:30pm, with the class continuing informally for anyone who'd like to stay until 10pm. Tea and light snacks provided." },
+      { day: "Saturday", title: "Ascension Training", content: "A full day of guided Ascension instruction, practice, and gentle yoga. 10am–6pm. Potluck-style shared dinner." },
+      { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm. Potluck-style shared meal." },
     ],
   },
   {
     id: 2,
-    name: "Belize Ascension Weekend",
+    group: "ascension-weekend",
+    groupLabel: "Belize — Dec 11–13, 2026",
+    name: "First Sphere Ascension Weekend",
     location: "Mayan Garden, Orange Walk, Belize",
     dates: "Dec 11–13, 2026",
     price: "$250",
     deposit: "$125",
-    tagline: "Meditate at the foot of ancient Maya temples — a weekend of Ascension in the jungles of Belize.",
-    image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774913070/Belize-lamanai-group-yoga-warrior_myyjzb.webp",
-    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. Held at the Mayan Garden in Orange Walk, this weekend immersive introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend.",
+    noLodging: true,
+    lodgingNote: "This is a day workshop — lodging isn't included. We're happy to share local accommodation recommendations for the Orange Walk area once you register.",
+    tagline: "The First Sphere Ascension course, held at the foot of ancient Maya temples — open to complete beginners and experienced meditators alike.",
+    image: ascensionImage,
+    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. Held at the Mayan Garden in Orange Walk, this weekend immersive introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice, alongside gentle yoga. No experience or belief required — even children learn to ascend.",
+    experienceHeading: "A Weekend of Effortless Meditation",
+    experiencesList: ["Guided Ascension meditation instruction, all levels welcome", "Free Friday evening introduction session", "Full Saturday & Sunday training, 10am–6pm", "Gentle yoga sessions", "Community potluck-style meals Saturday & Sunday", "Tea and light snacks Friday evening"],
     included: [
-      "Free Friday evening introduction session, 6:45–8:30pm",
+      "Free Friday evening introduction session, 6:45–8:30pm (session continues informally for anyone who'd like to stay until 10pm)",
       "Full weekend of guided Ascension instruction — Saturday & Sunday, 10am–6pm",
+      "Gentle yoga sessions",
       "Personal instruction and all course materials",
-      "Community, potluck-style shared meals — bring a dish to share",
+      "Tea and light snacks Friday evening",
+      "Community potluck-style shared meals Saturday & Sunday — bring a dish to share",
     ],
     excluded: ["Lodging / accommodation", "Travel to and from the venue", "Personal expenses"],
+    faq: ascensionWeekendFAQ,
     itinerary: [
-      { day: "Friday", title: "Free Introduction", content: "A free introductory session open to all, no cost to attend. 6:45–8:30pm." },
-      { day: "Saturday", title: "Ascension Training", content: "A full day of guided Ascension instruction and practice. 10am–6pm." },
-      { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm." },
+      { day: "Friday", title: "Free Introduction", content: "A free introductory session open to all, no cost to attend. 6:45–8:30pm, with the class continuing informally for anyone who'd like to stay until 10pm. Tea and light snacks provided." },
+      { day: "Saturday", title: "Ascension Training", content: "A full day of guided Ascension instruction, practice, and gentle yoga. 10am–6pm. Potluck-style shared dinner." },
+      { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm. Potluck-style shared meal." },
     ],
   },
   {
     id: 7,
-    name: "Advanced Ascension Immersive — 7 Days",
+    group: "ascension-immersive",
+    groupLabel: "7 Days — Jan 15–21, 2027",
+    name: "Advanced Ascension Immersive",
     location: "Tulum, Mexico",
     dates: "Jan 15–21, 2027",
     price: "$450",
     deposit: "$150",
-    tagline: "An extended immersion for those who already know how to ascend.",
-    image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774505031/TULUM2_zegncv.jpg",
+    tagline: "For advanced Ascenders only — an extended immersion for those who already completed the First Sphere course.",
+    image: ascensionImage,
     description: "For students who have already learned to ascend, this 7-day immersive offers extended daily practice, deeper teachings, and full-time community living in Tulum during the quieter mid-January season. Open only to those who have completed a First Sphere Ascension course.",
-    included: ["6 nights accommodation", "All meals included", "Daily advanced Ascension practice and teaching", "Full-time guidance and community support"],
+    experienceHeading: "A Deeper Immersion in Ascension",
+    experiencesList: ["Daily advanced Ascension practice and teaching", "Full-time community living", "Rotating cook-team meals — shared and home-prepared", "Open exclusively to those who already know how to ascend", "Extended integration and personal guidance"],
+    included: ["6 nights accommodation", "All meals — prepared by rotating guest cook teams", "Daily advanced Ascension practice and teaching", "Full-time guidance and community support"],
     excluded: ["International/domestic flights", "Travel insurance", "Personal expenses"],
+    faq: ascensionImmersiveFAQ,
     itinerary: [
       { day: "Day 1", title: "Arrival", content: "Arrival, check-in, opening circle and evening Ascension session." },
-      { day: "Days 2–6", title: "Deep Practice", content: "Daily advanced Ascension sessions, teachings, and community time." },
+      { day: "Days 2–6", title: "Deep Practice", content: "Daily advanced Ascension sessions, teachings, and community time. Each guest joins a cook team responsible for one night's shared dinner." },
       { day: "Day 7", title: "Closing & Departure", content: "Closing session and departures." },
     ],
   },
   {
     id: 8,
-    name: "Advanced Ascension Immersive — 10 Days",
+    group: "ascension-immersive",
+    groupLabel: "10 Days — Jan 15–24, 2027",
+    name: "Advanced Ascension Immersive",
     location: "Tulum, Mexico",
     dates: "Jan 15–24, 2027",
     price: "$650",
     deposit: "$150",
-    tagline: "An extended immersion for those who already know how to ascend.",
-    image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774505031/TULUM2_zegncv.jpg",
+    tagline: "For advanced Ascenders only — an extended immersion for those who already completed the First Sphere course.",
+    image: ascensionImage,
     description: "For students who have already learned to ascend, this 10-day immersive offers extended daily practice, deeper teachings, and full-time community living in Tulum during the quieter mid-January season. Open only to those who have completed a First Sphere Ascension course.",
-    included: ["9 nights accommodation", "All meals included", "Daily advanced Ascension practice and teaching", "Full-time guidance and community support"],
+    experienceHeading: "A Deeper Immersion in Ascension",
+    experiencesList: ["Daily advanced Ascension practice and teaching", "Full-time community living", "Rotating cook-team meals — shared and home-prepared", "Open exclusively to those who already know how to ascend", "Extended integration and personal guidance"],
+    included: ["9 nights accommodation", "All meals — prepared by rotating guest cook teams", "Daily advanced Ascension practice and teaching", "Full-time guidance and community support"],
     excluded: ["International/domestic flights", "Travel insurance", "Personal expenses"],
+    faq: ascensionImmersiveFAQ,
     itinerary: [
       { day: "Day 1", title: "Arrival", content: "Arrival, check-in, opening circle and evening Ascension session." },
-      { day: "Days 2–9", title: "Deep Practice", content: "Daily advanced Ascension sessions, teachings, and community time." },
+      { day: "Days 2–9", title: "Deep Practice", content: "Daily advanced Ascension sessions, teachings, and community time. Each guest joins a cook team responsible for one night's shared dinner." },
       { day: "Day 10", title: "Closing & Departure", content: "Closing session and departures." },
     ],
   },
 ];
+
+// Group retreat variants (same retreat, different date/duration) into single cards
+const retreatGroups = (() => {
+  const map = new Map();
+  retreats.forEach(r => {
+    const key = r.group || `single-${r.id}`;
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(r);
+  });
+  return Array.from(map.values());
+})();
 
 const testimonials = [
   { name: "Anthony Sosa", role: "Retreat Guest · Belize, Mexico & Vietnam", quote: "Absolutely incredible, life enhancing and changing experiences. Every time I've had a truly exceptional experience. The food is always healthy and conscious. Healing is a life long process — and this is where it happens." },
@@ -463,7 +546,7 @@ function Nav() {
       }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
           <button onClick={() => nav("/")} style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
-            <img src="https://res.cloudinary.com/dyuinj9pz/image/upload/v1782363437/IMG_5913_jhtsx6.jpg" alt="Sacred Wellness Retreats" style={{ height: 52, width: "auto", objectFit: "contain" }} />
+            <img src="/logo-silhouette-charcoal.png" alt="Sacred Wellness Retreats" style={{ height: 52, width: "auto", objectFit: "contain" }} />
           </button>
           <nav style={{ display: "flex", gap: 36, alignItems: "center" }}>
             {[["/","Home"],["/retreats","Retreats"],["/about","About"],["/contact","Contact"]].map(([path,label]) => (
@@ -623,8 +706,10 @@ function Testimonials() {
 }
 
 // ─── RETREAT CARD ─────────────────────────────────────────────────────────────
-function RetreatCard({ retreat }) {
+function RetreatCard({ variants }) {
   const navigate = useNavigate();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const retreat = variants[selectedIndex];
 
   if (retreat.comingSoon) {
     return (
@@ -663,7 +748,18 @@ function RetreatCard({ retreat }) {
       </div>
       <div style={{ padding: "28px 28px 32px" }}>
         <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.5rem", fontWeight: 500, marginBottom: 8, color: theme.charcoal }}>{retreat.name}</h3>
-        <p style={{ fontSize: "0.85rem", color: theme.stone, marginBottom: 8 }}>{retreat.dates}</p>
+        {variants.length > 1 ? (
+          <select
+            value={selectedIndex}
+            onChange={e => setSelectedIndex(Number(e.target.value))}
+            onClick={e => e.stopPropagation()}
+            style={{ width: "100%", marginBottom: 12, padding: "8px 10px", fontSize: "0.85rem", color: theme.charcoal, background: theme.sand, border: `1px solid ${theme.beige}`, fontFamily: "'DM Sans',sans-serif", cursor: "pointer" }}
+          >
+            {variants.map((v, i) => <option key={v.id} value={i}>{v.groupLabel || v.dates}</option>)}
+          </select>
+        ) : (
+          <p style={{ fontSize: "0.85rem", color: theme.stone, marginBottom: 8 }}>{retreat.dates}</p>
+        )}
         <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 4, flexWrap: "wrap" }}>
           <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.olive }}>{retreat.price} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>/ person</span></p>
           {retreat.deposit && <p style={{ fontSize: "0.78rem", color: theme.stone }}>or <span style={{ color: theme.bark, fontWeight: 500 }}>{retreat.deposit} deposit</span></p>}
@@ -698,7 +794,7 @@ function HomePage() {
             <button className="btn-dark-outline" onClick={() => { navigate("/retreats"); window.scrollTo(0,0); }}>View All Dates</button>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 28 }}>
-            {retreats.map(r => <RetreatCard key={r.id} retreat={r} />)}
+            {retreatGroups.map(variants => <RetreatCard key={variants[0].group || variants[0].id} variants={variants} />)}
           </div>
         </div>
       </section>
@@ -744,12 +840,12 @@ function RetreatsPage() {
       <div style={{ background: theme.oliveDark, padding: "140px 24px 80px", textAlign: "center" }}>
         <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: theme.accent, display: "block", marginBottom: 16 }}>2026 Season</span>
         <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2.4rem, 6vw, 4rem)", fontWeight: 300, color: theme.white, marginBottom: 16 }}>Upcoming Retreats</h1>
-        <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.95rem", maxWidth: 420, margin: "0 auto" }}>Each retreat is intentionally small — never more than 8 guests — for a deeply personal experience.</p>
+        <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.95rem", maxWidth: 420, margin: "0 auto" }}>From intimate all-inclusive retreats to open Ascension workshops — find the format that fits you.</p>
       </div>
       <section style={{ background: theme.cream, padding: "80px 24px" }}>
         <div className="container">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 32 }}>
-            {retreats.map(r => <RetreatCard key={r.id} retreat={r} />)}
+            {retreatGroups.map(variants => <RetreatCard key={variants[0].group || variants[0].id} variants={variants} />)}
           </div>
         </div>
       </section>
@@ -771,7 +867,7 @@ function RetreatDetailPage() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const experiences = ["Daily meditation & breathwork", "Yoga & mindful movement", "Nervous system regulation practices", "Group integration sessions", "Clean, nourishing meals", "1:1 somatic coaching session", "Nature immersions & ceremonies"];
+  const experiences = retreat.experiencesList || [];
 
   return (
     <>
@@ -802,7 +898,7 @@ function RetreatDetailPage() {
           <div>
             <span className="section-label">Overview</span>
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 20, color: theme.charcoal }}>Your Transformation Awaits</h2>
-            {retreat.id === 4 ? (
+            {retreat.group === "oaxaca" ? (
               <>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr", gap: 24, alignItems: "center" }} className="pine-layout">
                   <div style={{ height: 320, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782368918/Screenshot_2026-06-25_012748_zi2arv.png)`, backgroundSize: "cover", backgroundPosition: "center" }} />
@@ -824,7 +920,7 @@ function RetreatDetailPage() {
           {/* Experience */}
           <div>
             <span className="section-label">What You'll Experience</span>
-            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 28, color: theme.charcoal }}>Six Nights of Deep Restoration</h2>
+            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 28, color: theme.charcoal }}>{retreat.experienceHeading || "What You'll Experience"}</h2>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 14 }}>
               {experiences.map((e, i) => (
                 <li key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start", fontSize: "0.95rem", color: theme.charcoal }}>
@@ -836,7 +932,7 @@ function RetreatDetailPage() {
           </div>
           <hr className="divider" />
           {/* Photo Gallery — Oaxaca only */}
-          {retreat.id === 4 && (
+          {retreat.group === "oaxaca" && (
             <div>
               <span className="section-label">The Experience</span>
               <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 24, color: theme.charcoal }}>A Glimpse of What Awaits</h2>
@@ -861,21 +957,21 @@ function RetreatDetailPage() {
           <div>
             <span className="section-label">Pricing Transparency</span>
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 16, color: theme.charcoal }}>What's Included</h2>
-            {retreat.id === 4 && (
+            {retreat.group === "oaxaca" && (
               <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 28 }}>
-                <a href="/booking/4" style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.olive}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
+                <a href={`/booking/${retreat.id}`} style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.olive}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
                   onMouseEnter={e => e.currentTarget.style.background = theme.beige}
                   onMouseLeave={e => e.currentTarget.style.background = theme.sand}>
                   <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.stone, marginBottom: 4 }}>Solo — Click to Book</p>
                   <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.5rem", color: theme.olive }}>{retreat.price} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>/ person</span></p>
                 </a>
-                <a href="/booking/4" style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.accent}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
+                <a href={`/booking/${retreat.id}`} style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.accent}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
                   onMouseEnter={e => e.currentTarget.style.background = theme.beige}
                   onMouseLeave={e => e.currentTarget.style.background = theme.sand}>
                   <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.stone, marginBottom: 4 }}>Couples — Save $800</p>
                   <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.5rem", color: theme.olive }}>{retreat.couplePrice} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>/ couple</span></p>
                 </a>
-                <a href="/booking/4" style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.bark}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
+                <a href={`/booking/${retreat.id}`} style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.bark}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
                   onMouseEnter={e => e.currentTarget.style.background = theme.beige}
                   onMouseLeave={e => e.currentTarget.style.background = theme.sand}>
                   <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.stone, marginBottom: 4 }}>Deposit to Reserve</p>
@@ -951,7 +1047,7 @@ function RetreatDetailPage() {
           <div>
             <span className="section-label">Stay</span>
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 20, color: theme.charcoal }}>Accommodations</h2>
-            {retreat.id === 4 ? (
+            {retreat.group === "oaxaca" ? (
               <>
                 <div style={{ marginBottom: 32, height: 380, backgroundImage: `url(https://res.cloudinary.com/dyuinj9pz/image/upload/v1782327563/Screenshot_2026-06-24_135403_edy1ns.png)`, backgroundSize: "cover", backgroundPosition: "center" }} />
                 <p style={{ fontSize: "0.92rem", color: theme.stone, lineHeight: 1.8, marginBottom: 28 }}>
@@ -971,6 +1067,14 @@ function RetreatDetailPage() {
                 </div>
                 <p style={{ fontSize: "0.8rem", color: theme.stone, marginTop: 16, fontStyle: "italic" }}>All accommodations include meals, housekeeping, and full board throughout.</p>
               </>
+            ) : retreat.noLodging ? (
+              <div style={{ background: theme.white, padding: "36px", borderTop: `3px solid ${theme.olive}` }}>
+                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.charcoal, marginBottom: 12 }}>Lodging Not Included</p>
+                <p style={{ fontSize: "0.92rem", color: theme.stone, lineHeight: 1.8 }}>{retreat.lodgingNote}</p>
+                <p style={{ fontSize: "0.85rem", color: theme.olive, marginTop: 16, fontStyle: "italic" }}>
+                  Questions? Reach us at info@sacredwellnessretreats.com
+                </p>
+              </div>
             ) : (
               <div style={{ background: theme.white, padding: "36px", borderTop: `3px solid ${theme.olive}` }}>
                 <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.charcoal, marginBottom: 12 }}>Venue to be announced</p>
@@ -988,12 +1092,7 @@ function RetreatDetailPage() {
           <div>
             <span className="section-label">FAQ</span>
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 28, color: theme.charcoal }}>Common Questions</h2>
-            {[
-              ["Do I need experience with yoga or meditation?", "Not at all. Our practices are accessible for all levels, from complete beginners to seasoned practitioners."],
-              ["What is your cancellation policy?", "Full refund up to 60 days before the retreat. 50% refund 30–60 days out. No refunds within 30 days, though your spot can be transferred."],
-              ["Are meals included?", "Yes. All meals are included — plant-forward, nourishing, and prepared fresh daily."],
-              ["How many guests per retreat?", "We intentionally limit each retreat to a maximum of 8 guests for a deeply personal experience."],
-            ].map(([q, a], i) => (
+            {(retreat.faq || []).map(([q, a], i) => (
               <div key={i} style={{ borderTop: `1px solid ${theme.beige}`, padding: "18px 0" }}>
                 <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", marginBottom: 8, color: theme.charcoal }}>{q}</p>
                 <p style={{ fontSize: "0.9rem", color: theme.stone, lineHeight: 1.7 }}>{a}</p>
@@ -1452,7 +1551,7 @@ function Footer() {
       <div className="container">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 40, marginBottom: 48 }}>
           <div>
-            <img src="/assets/logo-silhouette-cream.png" alt="Sacred Wellness Retreats" style={{ height: 80, width: "auto", objectFit: "contain", marginBottom: 16 }} />
+            <img src="/logo-silhouette-cream.png" alt="Sacred Wellness Retreats" style={{ height: 80, width: "auto", objectFit: "contain", marginBottom: 16 }} />
             <p style={{ fontSize: "0.82rem", lineHeight: 1.7 }}>Curated wellness retreats for deep rest, cultural immersion, and genuine inner transformation.</p>
           </div>
           <div>
