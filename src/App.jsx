@@ -254,39 +254,10 @@ const ascensionImmersiveFAQ = [
 
 const ascensionImage = "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774315508/Jesus_Ishaya_Group_ld6dne.png";
 
-const retreats = [
-  {
-    id: 1,
-    group: "ascension-weekend",
-    groupLabel: "Dec 4–6, 2026 · Tulum",
-    name: "Ishayas' First Sphere Ascension Workshop",
-    location: "Tulum, Mexico",
-    dates: "Dec 4–6, 2026",
-    price: "$250",
-    deposit: "$125",
-    noLodging: true,
-    lodgingNote: "This is a day workshop — lodging isn't included. We're happy to share local accommodation recommendations for Tulum once you register.",
-    travelNote: "Most guests fly into Tulum International Airport (TQO). Taxi service can be arranged for each guest at third-party cost — whatever the market rate is at the time.",
-    tagline: "The First Sphere Ascension course — open to complete beginners and experienced meditators alike. No prior experience required.",
-    image: ascensionImage,
-    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. This workshop in Tulum introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
-    experienceHeading: "Learn to Ascend",
-    experiencesList: ["Guided Ascension meditation instruction, all levels welcome", "Free Friday evening introduction session", "Full Saturday & Sunday training, 10am–6pm", "Community potluck-style meals Saturday & Sunday", "Tea and light snacks Friday evening"],
-    included: [
-      "Free Friday evening introduction session, 6:45–8:30pm — the paid class then begins and runs until 10pm",
-      "Guided Ascension instruction — Saturday & Sunday, 10am–6pm",
-      "Personal instruction and all course materials",
-      "Tea and light snacks Friday evening",
-      "Community potluck-style shared meals Saturday & Sunday — bring a dish to share",
-    ],
-    excluded: ["Lodging / accommodation", "Travel to and from the venue", "Personal expenses"],
-    faq: ascensionWeekendFAQ,
-    itinerary: [
-      { day: "Friday", title: "Free Introduction", content: "A free introductory session open to all, no cost to attend, 6:45–8:30pm. The paid class begins at 8:30pm and runs until 10pm. Tea and light snacks provided." },
-      { day: "Saturday", title: "Ascension Training", content: "A full day of guided Ascension instruction and practice. 10am–6pm. Potluck-style shared dinner." },
-      { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm. Potluck-style shared meal." },
-    ],
-  },
+// --- PAUSED: Belize First Sphere Workshop — on hold for now, not shown on the site ---
+// To bring it back, paste this object into the `retreats` array below and restore its
+// stripeLinks entry (2: same $250/$125 links as the other First Sphere sessions).
+/*
   {
     id: 2,
     group: "ascension-weekend",
@@ -318,13 +289,47 @@ const retreats = [
       { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm. Potluck-style shared meal." },
     ],
   },
+*/
+
+const retreats = [
   {
-    id: 5,
+    id: 9,
     group: "ascension-weekend",
-    groupLabel: "Dec 18–20, 2026 · Tulum",
+    groupLabel: "Nov 20–22, 2026 · Monterrey",
+    name: "Ishayas' First Sphere Ascension Workshop",
+    location: "Monterrey, Mexico",
+    dates: "Nov 20–22, 2026",
+    price: "$250",
+    deposit: "$125",
+    noLodging: true,
+    lodgingNote: "This is a day workshop — lodging isn't included. We're happy to share local accommodation recommendations for Monterrey once you register.",
+    tagline: "The First Sphere Ascension course — open to complete beginners and experienced meditators alike. No prior experience required.",
+    image: ascensionImage,
+    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. This workshop in Monterrey introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
+    experienceHeading: "Learn to Ascend",
+    experiencesList: ["Guided Ascension meditation instruction, all levels welcome", "Free Friday evening introduction session", "Full Saturday & Sunday training, 10am–6pm", "Community potluck-style meals Saturday & Sunday", "Tea and light snacks Friday evening"],
+    included: [
+      "Free Friday evening introduction session, 6:45–8:30pm — the paid class then begins and runs until 10pm",
+      "Guided Ascension instruction — Saturday & Sunday, 10am–6pm",
+      "Personal instruction and all course materials",
+      "Tea and light snacks Friday evening",
+      "Community potluck-style shared meals Saturday & Sunday — bring a dish to share",
+    ],
+    excluded: ["Lodging / accommodation", "Travel to and from the venue", "Personal expenses"],
+    faq: ascensionWeekendFAQ,
+    itinerary: [
+      { day: "Friday", title: "Free Introduction", content: "A free introductory session open to all, no cost to attend, 6:45–8:30pm. The paid class begins at 8:30pm and runs until 10pm. Tea and light snacks provided." },
+      { day: "Saturday", title: "Ascension Training", content: "A full day of guided Ascension instruction and practice. 10am–6pm. Potluck-style shared dinner." },
+      { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm. Potluck-style shared meal." },
+    ],
+  },
+  {
+    id: 10,
+    group: "ascension-weekend",
+    groupLabel: "Nov 27–29, 2026 · Tulum",
     name: "Ishayas' First Sphere Ascension Workshop",
     location: "Tulum, Mexico",
-    dates: "Dec 18–20, 2026",
+    dates: "Nov 27–29, 2026",
     price: "$250",
     deposit: "$125",
     noLodging: true,
@@ -1135,11 +1140,10 @@ function RetreatDetailPage() {
 
 // ─── BOOKING FLOW ─────────────────────────────────────────────────────────────
 const stripeLinks = {
-  // $250 First Sphere Workshop (Tulum & Belize) — $125 deposit
-  1: { deposit: "https://buy.stripe.com/4gM7sM3e5dWTfTAen84800k", full: "https://buy.stripe.com/7sY00kcOF5qn0YGen84800j" },
-  2: { deposit: "https://buy.stripe.com/4gM7sM3e5dWTfTAen84800k", full: "https://buy.stripe.com/7sY00kcOF5qn0YGen84800j" },
+  // $250 First Sphere Workshop (Monterrey, Tulum & Belize) — $125 deposit
+  9: { deposit: "https://buy.stripe.com/4gM7sM3e5dWTfTAen84800k", full: "https://buy.stripe.com/7sY00kcOF5qn0YGen84800j" },
+  10: { deposit: "https://buy.stripe.com/4gM7sM3e5dWTfTAen84800k", full: "https://buy.stripe.com/7sY00kcOF5qn0YGen84800j" },
   4: { deposit: "https://buy.stripe.com/eVqbJ2g0R2ebbDkcf04800f", full: "https://buy.stripe.com/14A6oI9Ct9GD4aSa6S4800e", couples: "https://buy.stripe.com/3cIbJ2dSJ063cHoen84800g" },
-  5: { deposit: "https://buy.stripe.com/4gM7sM3e5dWTfTAen84800k", full: "https://buy.stripe.com/7sY00kcOF5qn0YGen84800j" },
   6: { deposit: "https://buy.stripe.com/eVqbJ2g0R2ebbDkcf04800f", full: "https://buy.stripe.com/14A6oI9Ct9GD4aSa6S4800e", couples: "https://buy.stripe.com/3cIbJ2dSJ063cHoen84800g" },
   // $450 7-Day Ascension Retreat — $150 deposit
   7: { deposit: "https://buy.stripe.com/5kQ5kE15XcSPgXEdj44800l", full: "https://buy.stripe.com/bJe8wQ01TcSP4aSbaW4800i" },
