@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate, useParams, useLocation } from "react-router-dom";
 
 const theme = {
   sand: "#F5EFE0",
@@ -19,15 +19,11 @@ const theme = {
 const pageMeta = {
   home: {
     title: "Sacred Wellness Retreats | Meditation & Wellness Retreats in Mexico",
-    description: "Transformational wellness retreats and Ishayas' Ascension workshops and retreats in Oaxaca, Tulum, and Belize. Guided meditation, mountain hikes, ceremonial experiences, and delicious meals.",
+    description: "Small-group meditation and wellness retreats in Mexico with Parmananda: Oaxaca and the Sierra Sur, Tulum, and Ishayas' Ascension workshops and retreats.",
   },
   retreats: {
     title: "Retreat Dates & Locations | Sacred Wellness Retreats",
-    description: "Upcoming retreats: Magical Oaxaca & Sierra Sur, Ishayas' First Sphere Ascension Workshop in Tulum and Belize, and the Ishayas' Ascension Retreat in Tulum.",
-  },
-  "retreat-detail": {
-    title: "Retreat Details | Sacred Wellness Retreats",
-    description: "Explore what's included in your Sacred Wellness Retreat — daily yoga, breathwork, somatic practices, clean meals, and deep integration work.",
+    description: "Upcoming retreat dates with Sacred Wellness Retreats in Tulum and Oaxaca, Mexico. Small groups, prices and what is included on every page.",
   },
   about: {
     title: "About Parmananda | Sacred Wellness Retreats",
@@ -35,7 +31,7 @@ const pageMeta = {
   },
   apply: {
     title: "Apply to Join a Retreat | Sacred Wellness Retreats",
-    description: "Apply to join an upcoming Sacred Wellness Retreat. Spots are limited to 8–12 guests per retreat for a deeply personal experience.",
+    description: "Apply to join an upcoming Sacred Wellness Retreat. Groups are kept small for a personal experience.",
   },
   contact: {
     title: "Contact Us | Sacred Wellness Retreats",
@@ -55,63 +51,76 @@ const pageMeta = {
   },
 };
 
-function useSEO(page) {
+const SITE_URL = "https://sacredwellnessretreats.com";
+const SHARE_IMAGE = "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774505014/Tropical_sunrise_from_a_balcony_w4ddcv.png";
+
+// Title and description for the page at this path. Retreat pages use the retreat's own name, dates and tagline.
+function metaFor(pathname) {
+  const [section, id] = pathname.split("/").filter(Boolean);
+  if (section === "retreat" || section === "booking") {
+    const r = retreats.find(x => x.id === parseInt(id));
+    if (r && section === "retreat") return { title: `${r.name} · ${r.dates} | Sacred Wellness Retreats`, description: r.tagline };
+    return section === "booking" ? pageMeta.booking : { ...pageMeta.retreats, path: "/retreats" };
+  }
+  return pageMeta[section] || pageMeta.home;
+}
+
+function setHeadTag(selector, create, content) {
+  let tag = document.querySelector(selector);
+  if (!tag) { tag = create(); document.head.appendChild(tag); }
+  if (tag.tagName === "LINK") tag.href = content; else tag.content = content;
+}
+
+function useSEO(pathname) {
   useEffect(() => {
-    const meta = pageMeta[page] || pageMeta.home;
+    const meta = metaFor(pathname);
+    const path = meta.path || pathname;
+    const url = SITE_URL + (path === "/" ? "" : path);
     document.title = meta.title;
-    let desc = document.querySelector('meta[name="description"]');
-    if (!desc) { desc = document.createElement("meta"); desc.name = "description"; document.head.appendChild(desc); }
-    desc.content = meta.description;
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (!ogTitle) { ogTitle = document.createElement("meta"); ogTitle.setAttribute("property","og:title"); document.head.appendChild(ogTitle); }
-    ogTitle.content = meta.title;
-    let ogDesc = document.querySelector('meta[property="og:description"]');
-    if (!ogDesc) { ogDesc = document.createElement("meta"); ogDesc.setAttribute("property","og:description"); document.head.appendChild(ogDesc); }
-    ogDesc.content = meta.description;
-    let ogImg = document.querySelector('meta[property="og:image"]');
-    if (!ogImg) { ogImg = document.createElement("meta"); ogImg.setAttribute("property","og:image"); document.head.appendChild(ogImg); }
-    ogImg.content = "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774505014/Tropical_sunrise_from_a_balcony_w4ddcv.png";
-    let ogUrl = document.querySelector('meta[property="og:url"]');
-    if (!ogUrl) { ogUrl = document.createElement("meta"); ogUrl.setAttribute("property","og:url"); document.head.appendChild(ogUrl); }
-    ogUrl.content = "https://sacredwellnessretreats.com";
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) { canonical = document.createElement("link"); canonical.rel = "canonical"; document.head.appendChild(canonical); }
-    canonical.href = "https://sacredwellnessretreats.com";
-    // Twitter/X Card tags
-    const twitterTags = {
-      "twitter:card": "summary_large_image",
-      "twitter:site": "@sacredwellness",
-      "twitter:title": meta.title,
-      "twitter:description": meta.description,
-      "twitter:image": "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774505014/Tropical_sunrise_from_a_balcony_w4ddcv.png",
-    };
-    Object.entries(twitterTags).forEach(([name, content]) => {
-      let tag = document.querySelector(`meta[name="${name}"]`);
-      if (!tag) { tag = document.createElement("meta"); tag.name = name; document.head.appendChild(tag); }
-      tag.content = content;
-    });
+    const metaName = name => () => { const t = document.createElement("meta"); t.name = name; return t; };
+    const metaProp = prop => () => { const t = document.createElement("meta"); t.setAttribute("property", prop); return t; };
+    setHeadTag('meta[name="description"]', metaName("description"), meta.description);
+    setHeadTag('meta[property="og:title"]', metaProp("og:title"), meta.title);
+    setHeadTag('meta[property="og:description"]', metaProp("og:description"), meta.description);
+    setHeadTag('meta[property="og:image"]', metaProp("og:image"), SHARE_IMAGE);
+    setHeadTag('meta[property="og:url"]', metaProp("og:url"), url);
+    setHeadTag('link[rel="canonical"]', () => { const l = document.createElement("link"); l.rel = "canonical"; return l; }, url);
+    setHeadTag('meta[name="twitter:card"]', metaName("twitter:card"), "summary_large_image");
+    setHeadTag('meta[name="twitter:title"]', metaName("twitter:title"), meta.title);
+    setHeadTag('meta[name="twitter:description"]', metaName("twitter:description"), meta.description);
+    setHeadTag('meta[name="twitter:image"]', metaName("twitter:image"), SHARE_IMAGE);
+
+    // Structured data: the organisation, plus one Event per upcoming retreat date with its own page.
     let schema = document.querySelector('#sacred-schema');
     if (!schema) { schema = document.createElement("script"); schema.id = "sacred-schema"; schema.type = "application/ld+json"; document.head.appendChild(schema); }
     schema.textContent = JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "TouristInformationCenter",
-      "name": "Sacred Wellness Retreats",
-      "description": "Premium 5-day wellness retreats for nervous system reset, meditation, breathwork, and emotional clarity.",
-      "url": "https://sacredwellnessretreats.com",
-      "email": "info@sacredwellnessretreats.com",
-      "image": "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774505014/Tropical_sunrise_from_a_balcony_w4ddcv.png",
-      "founder": { "@type": "Person", "name": "Parmananda" },
-      "offers": retreats.map(r => ({
-        "@type": "Offer",
-        "name": r.name,
-        "description": r.description,
-        "price": r.price.replace("$",""),
-        "priceCurrency": "USD",
-        "url": "https://sacredwellnessretreats.com",
-        "availability": "https://schema.org/InStock",
-      })),
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": `${SITE_URL}/#organization`,
+          "name": "Sacred Wellness Retreats",
+          "url": SITE_URL,
+          "email": "info@sacredwellnessretreats.com",
+          "logo": `${SITE_URL}/logo512.png`,
+          "founder": { "@type": "Person", "name": "Parmananda" },
+        },
+        ...retreats.filter(r => !isPast(r)).map(r => ({
+          "@type": "Event",
+          "name": r.name,
+          "description": r.tagline,
+          "startDate": r.start,
+          "endDate": r.end,
+          "eventStatus": "https://schema.org/EventScheduled",
+          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+          "location": { "@type": "Place", "name": r.location, "address": r.location },
+          "organizer": { "@id": `${SITE_URL}/#organization` },
+          "url": `${SITE_URL}/retreat/${r.id}`,
+          "offers": { "@type": "Offer", "price": r.price.replace(/[^0-9.]/g, ""), "priceCurrency": "USD", "url": `${SITE_URL}/retreat/${r.id}` },
+        })),
+      ],
     });
-  }, [page]);
+  }, [pathname]);
 }
 
 const fonts = `
@@ -299,6 +308,8 @@ const retreats = [
     name: "Ishayas' First Sphere Ascension Workshop",
     location: "Monterrey, Mexico",
     dates: "Nov 20–22, 2026",
+    start: "2026-11-20",
+    end: "2026-11-22",
     price: "$250",
     deposit: "$125",
     noLodging: true,
@@ -330,6 +341,8 @@ const retreats = [
     name: "Ishayas' First Sphere Ascension Workshop",
     location: "Tulum, Mexico",
     dates: "Nov 27–29, 2026",
+    start: "2026-11-27",
+    end: "2026-11-29",
     price: "$250",
     deposit: "$125",
     noLodging: true,
@@ -362,6 +375,8 @@ const retreats = [
     name: "Ishayas' Ascension Retreat",
     location: "Tulum, Mexico",
     dates: "Jan 15–21, 2027",
+    start: "2027-01-15",
+    end: "2027-01-21",
     price: "$450",
     deposit: "$150",
     tagline: "For advanced Ascenders only — an extended retreat for those who have already completed the First Sphere course.",
@@ -385,6 +400,8 @@ const retreats = [
     name: "Ishayas' Ascension Retreat",
     location: "Tulum, Mexico",
     dates: "Jan 15–24, 2027",
+    start: "2027-01-15",
+    end: "2027-01-24",
     price: "$650",
     deposit: "$150",
     tagline: "For advanced Ascenders only — an extended retreat for those who have already completed the First Sphere course.",
@@ -408,6 +425,8 @@ const retreats = [
     name: "Magical Oaxaca & Sierra Sur Retreat",
     location: "Oaxaca City & San José del Pacífico, Mexico",
     dates: "Aug 2–8, 2027",
+    start: "2027-08-02",
+    end: "2027-08-08",
     price: "$3,800",
     couplePrice: "$6,800",
     deposit: "$800",
@@ -455,6 +474,8 @@ const retreats = [
     name: "Magical Oaxaca & Sierra Sur Retreat",
     location: "Oaxaca City & San José del Pacífico, Mexico",
     dates: "Aug 23–29, 2027",
+    start: "2027-08-23",
+    end: "2027-08-29",
     price: "$3,800",
     couplePrice: "$6,800",
     deposit: "$800",
@@ -497,6 +518,9 @@ const retreats = [
   },
 ];
 
+// A date is past once its last day is over. Past dates show as "Completed" and cannot be booked or applied for.
+const isPast = r => new Date(`${r.end}T23:59:59`) < new Date();
+
 // Group retreat variants (same retreat, different date/duration) into single cards
 const retreatGroups = (() => {
   const map = new Map();
@@ -507,6 +531,9 @@ const retreatGroups = (() => {
   });
   return Array.from(map.values());
 })();
+
+// Cards shown on the site: a retreat stays listed while at least one of its dates is still ahead.
+const upcomingGroups = () => retreatGroups.filter(variants => variants.some(v => !isPast(v)));
 
 const testimonials = [
   { name: "Anthony Sosa", role: "Retreat Guest · Belize, Mexico & Vietnam", quote: "Absolutely incredible, life enhancing and changing experiences. Every time I've had a truly exceptional experience. The food is always healthy and conscious. Healing is a life long process — and this is where it happens." },
@@ -635,7 +662,7 @@ function Hero() {
           Reset Your Mind.<br />Recalibrate Your Body.<br /><em>Return Renewed.</em>
         </h1>
         <p className="fade-in delay-2" style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "1rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.7, maxWidth: 480, marginBottom: 44 }}>
-          Curated wellness retreats designed for deep rest, cultural immersion, and genuine inner transformation. Intentionally small. All-inclusive.
+          Curated wellness retreats designed for deep rest, cultural immersion, and genuine inner transformation. Intentionally small.
         </p>
         <div className="fade-in delay-3" style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
           <button className="btn-primary" onClick={() => { navigate("/retreats"); window.scrollTo(0,0); }}>View Retreat Dates</button>
@@ -712,8 +739,9 @@ function Testimonials() {
 // ─── RETREAT CARD ─────────────────────────────────────────────────────────────
 function RetreatCard({ variants }) {
   const navigate = useNavigate();
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(() => Math.max(0, variants.findIndex(v => !isPast(v))));
   const retreat = variants[selectedIndex];
+  const past = isPast(retreat);
 
   if (retreat.comingSoon) {
     return (
@@ -759,14 +787,15 @@ function RetreatCard({ variants }) {
             onClick={e => e.stopPropagation()}
             style={{ width: "100%", marginBottom: 12, padding: "8px 10px", fontSize: "0.85rem", color: theme.charcoal, background: theme.sand, border: `1px solid ${theme.beige}`, fontFamily: "'DM Sans',sans-serif", cursor: "pointer" }}
           >
-            {variants.map((v, i) => <option key={v.id} value={i}>{v.groupLabel || v.dates}</option>)}
+            {variants.map((v, i) => <option key={v.id} value={i}>{v.groupLabel || v.dates}{isPast(v) ? " · Completed" : ""}</option>)}
           </select>
         ) : (
           <p style={{ fontSize: "0.85rem", color: theme.stone, marginBottom: 8 }}>{retreat.dates}</p>
         )}
         <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 4, flexWrap: "wrap" }}>
           <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.olive }}>{retreat.price} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>/ person</span></p>
-          {retreat.deposit && <p style={{ fontSize: "0.78rem", color: theme.stone }}>or <span style={{ color: theme.bark, fontWeight: 500 }}>{retreat.deposit} deposit</span></p>}
+          {retreat.deposit && !past && <p style={{ fontSize: "0.78rem", color: theme.stone }}>or <span style={{ color: theme.bark, fontWeight: 500 }}>{retreat.deposit} deposit</span></p>}
+          {past && <p style={{ fontSize: "0.78rem", color: theme.bark, fontWeight: 500 }}>Completed</p>}
         </div>
         {retreat.couplePrice && (
           <p style={{ fontSize: "0.78rem", color: theme.stone, marginBottom: 4 }}>Couples: <span style={{ color: theme.olive, fontWeight: 500 }}>{retreat.couplePrice}</span> <span style={{ color: theme.stone }}>— save $800</span></p>
@@ -798,7 +827,7 @@ function HomePage() {
             <button className="btn-dark-outline" onClick={() => { navigate("/retreats"); window.scrollTo(0,0); }}>View All Dates</button>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 28 }}>
-            {retreatGroups.map(variants => <RetreatCard key={variants[0].group || variants[0].id} variants={variants} />)}
+            {upcomingGroups().map(variants => <RetreatCard key={variants[0].group || variants[0].id} variants={variants} />)}
           </div>
         </div>
       </section>
@@ -842,14 +871,14 @@ function RetreatsPage() {
   return (
     <>
       <div style={{ background: theme.oliveDark, padding: "140px 24px 80px", textAlign: "center" }}>
-        <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: theme.accent, display: "block", marginBottom: 16 }}>2026 Season</span>
+        <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: theme.accent, display: "block", marginBottom: 16 }}>2026 – 2027</span>
         <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2.4rem, 6vw, 4rem)", fontWeight: 300, color: theme.white, marginBottom: 16 }}>Upcoming Retreats</h1>
         <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.95rem", maxWidth: 420, margin: "0 auto" }}>From intimate all-inclusive retreats to open Ascension workshops — find the format that fits you.</p>
       </div>
       <section style={{ background: theme.cream, padding: "80px 24px" }}>
         <div className="container">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 32 }}>
-            {retreatGroups.map(variants => <RetreatCard key={variants[0].group || variants[0].id} variants={variants} />)}
+            {upcomingGroups().map(variants => <RetreatCard key={variants[0].group || variants[0].id} variants={variants} />)}
           </div>
         </div>
       </section>
@@ -862,7 +891,7 @@ function RetreatsPage() {
 function RetreatDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const retreat = retreats.find(r => r.id === parseInt(id)) || retreats[0];
+  const retreat = retreats.find(r => r.id === parseInt(id));
   const [openDay, setOpenDay] = useState(null);
   const [stickyVisible, setStickyVisible] = useState(false);
   useEffect(() => {
@@ -871,7 +900,10 @@ function RetreatDetailPage() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  if (!retreat) return <RetreatsPage />;
+  const past = isPast(retreat);
   const experiences = retreat.experiencesList || [];
+  const seeDates = () => { navigate("/retreats"); window.scrollTo(0,0); };
 
   return (
     <>
@@ -886,12 +918,21 @@ function RetreatDetailPage() {
             <div style={{ display: "flex", gap: 32, flexWrap: "wrap", marginBottom: 8 }}>
               <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.9rem" }}>📅 {retreat.dates}</span>
             </div>
-            <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginBottom: 32, alignItems: "baseline" }}>
-              <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: theme.white }}>{retreat.price} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: "rgba(255,255,255,0.6)" }}>full price</span></span>
-              <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.9rem" }}>or</span>
-              <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: theme.accent }}>{retreat.deposit} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: "rgba(255,255,255,0.6)" }}>to reserve your spot today</span></span>
-            </div>
-            <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>Reserve Your Spot</button>
+            {past ? (
+              <>
+                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: theme.accent, marginBottom: 32 }}>This date has passed.</p>
+                <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={seeDates}>See Upcoming Dates</button>
+              </>
+            ) : (
+              <>
+                <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginBottom: 32, alignItems: "baseline" }}>
+                  <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: theme.white }}>{retreat.price} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: "rgba(255,255,255,0.6)" }}>full price</span></span>
+                  <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.9rem" }}>or</span>
+                  <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: theme.accent }}>{retreat.deposit} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: "rgba(255,255,255,0.6)" }}>to reserve your spot today</span></span>
+                </div>
+                <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>Reserve Your Spot</button>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -961,7 +1002,7 @@ function RetreatDetailPage() {
           <div>
             <span className="section-label">Pricing Transparency</span>
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 16, color: theme.charcoal }}>What's Included</h2>
-            {retreat.group === "oaxaca" && (
+            {retreat.group === "oaxaca" && !past && (
               <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 28 }}>
                 <a href={`/booking/${retreat.id}`} style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${theme.olive}`, flex: "1 1 200px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
                   onMouseEnter={e => e.currentTarget.style.background = theme.beige}
@@ -1108,19 +1149,26 @@ function RetreatDetailPage() {
             <div style={{ borderTop: `1px solid ${theme.beige}` }} />
           </div>
 
-          <div style={{ textAlign: "center", paddingTop: 20 }}>
-            <button className="btn-primary" style={{ fontSize: "0.9rem", padding: "16px 48px" }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>
-              Reserve Your Spot
-            </button>
-            <p style={{ fontSize: "0.82rem", color: theme.stone, marginTop: 12 }}>
-              Reserve with <strong style={{ color: theme.charcoal }}>{retreat.deposit} deposit</strong> today · Full price <strong style={{ color: theme.charcoal }}>{retreat.price}</strong> · Balance due 30 days before retreat
-            </p>
-          </div>
+          {past ? (
+            <div style={{ textAlign: "center", paddingTop: 20 }}>
+              <button className="btn-primary" style={{ fontSize: "0.9rem", padding: "16px 48px" }} onClick={seeDates}>See Upcoming Dates</button>
+              <p style={{ fontSize: "0.82rem", color: theme.stone, marginTop: 12 }}>This date has passed.</p>
+            </div>
+          ) : (
+            <div style={{ textAlign: "center", paddingTop: 20 }}>
+              <button className="btn-primary" style={{ fontSize: "0.9rem", padding: "16px 48px" }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>
+                Reserve Your Spot
+              </button>
+              <p style={{ fontSize: "0.82rem", color: theme.stone, marginTop: 12 }}>
+                Reserve with <strong style={{ color: theme.charcoal }}>{retreat.deposit} deposit</strong> today · Full price <strong style={{ color: theme.charcoal }}>{retreat.price}</strong> · Balance due 30 days before retreat
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
       {/* Sticky CTA */}
-      <div style={{
+      {!past && <div style={{
         position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 99,
         background: theme.oliveDark, padding: "16px 24px",
         display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -1133,7 +1181,7 @@ function RetreatDetailPage() {
           <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", color: theme.white }}>{retreat.dates} · <span style={{ color: theme.accent }}>{retreat.deposit} deposit</span> · {retreat.price} full</p>
         </div>
         <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>Book Now</button>
-      </div>
+      </div>}
     </>
   );
 }
@@ -1151,22 +1199,48 @@ const stripeLinks = {
   8: { deposit: "https://buy.stripe.com/5kQ5kEeWN9GD9vc7YK4800m", full: "https://buy.stripe.com/5kQeVe2a14mjazg6UG4800h" },
 };
 
+// Retreats that can be paid for right now: not past, and with Stripe links in place.
+const canBook = r => !r.comingSoon && !isPast(r) && Boolean(stripeLinks[r.id]);
+
+// Several dates share one Stripe link, so the link alone does not say which date was paid for.
+// client_reference_id (a standard Stripe payment-link parameter) records the retreat and its start date on the payment,
+// and prefilled_email saves the guest typing their email twice.
+const checkoutUrl = (link, retreat, email) => {
+  const params = new URLSearchParams({ client_reference_id: `swr-${retreat.id}-${retreat.start}` });
+  if (email) params.set("prefilled_email", email);
+  return `${link}?${params.toString()}`;
+};
+
 function BookingPage() {
   const { id } = useParams();
-  const retreatId = parseInt(id) || 2;
+  const navigate = useNavigate();
+  const bookable = retreats.filter(canBook);
+  const retreatId = bookable.some(r => r.id === parseInt(id)) ? parseInt(id) : (bookable[0] ? bookable[0].id : null);
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState({ retreat: retreatId, name: "", email: "", phone: "", guests: 1, payment: "deposit" });
+  const [form, setForm] = useState({ retreat: retreatId, name: "", email: "", phone: "", payment: "deposit" });
 
   const upd = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   const handlePayment = () => {
+    const retreat = retreats.find(r => r.id === form.retreat);
     const links = stripeLinks[form.retreat];
+    if (!retreat || !links) return;
     let url;
     if (form.payment === "full") url = links.full;
     else if (form.payment === "couples") url = links.couples || links.full;
     else url = links.deposit;
-    window.open(url, "_blank");
+    window.open(checkoutUrl(url, retreat, form.email.trim()), "_blank");
   };
+
+  if (!bookable.length) return (
+    <div style={{ minHeight: "100vh", background: theme.cream, paddingTop: 100 }}>
+      <div style={{ maxWidth: 600, margin: "0 auto", padding: "40px 24px", textAlign: "center" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", marginBottom: 8 }}>Booking is not open right now</h2>
+        <p style={{ color: theme.stone, fontSize: "0.9rem", marginBottom: 32 }}>See the upcoming dates, or write to us at info@sacredwellnessretreats.com.</p>
+        <button className="btn-primary" onClick={() => { navigate("/retreats"); window.scrollTo(0,0); }}>View Retreat Dates</button>
+      </div>
+    </div>
+  );
 
   const stepLabel = ["Select Retreat", "Your Details", "Payment", "Confirmation"];
 
@@ -1188,7 +1262,7 @@ function BookingPage() {
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", marginBottom: 8 }}>Select Your Retreat</h2>
             <p style={{ color: theme.stone, fontSize: "0.9rem", marginBottom: 32 }}>Choose the experience that calls to you.</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 40 }}>
-              {retreats.filter(r => !r.comingSoon).map(r => (
+              {bookable.map(r => (
                 <label key={r.id} style={{ display: "flex", gap: 16, padding: "20px", background: form.retreat===r.id ? theme.white : "transparent", border: `2px solid ${form.retreat===r.id ? theme.olive : theme.beige}`, cursor: "pointer", transition: "all 0.2s" }}>
                   <input type="radio" checked={form.retreat===r.id} onChange={() => upd("retreat", r.id)} style={{ marginTop: 3, accentColor: theme.olive }} />
                   <div>
@@ -1216,13 +1290,9 @@ function BookingPage() {
                     onBlur={e => e.target.style.borderColor = theme.beige} />
                 </div>
               ))}
-              <div>
-                <label style={{ display: "block", fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.olive, marginBottom: 8 }}>Number of Guests</label>
-                <select value={form.guests} onChange={e => upd("guests", e.target.value)}
-                  style={{ width: "100%", padding: "14px 16px", border: `1px solid ${theme.beige}`, background: theme.white, fontSize: "0.95rem", fontFamily: "'DM Sans',sans-serif", outline: "none" }}>
-                  {[1,2,3,4].map(n => <option key={n} value={n}>{n} Guest{n>1?"s":""}</option>)}
-                </select>
-              </div>
+              <p style={{ fontSize: "0.82rem", color: theme.stone, lineHeight: 1.6 }}>
+                Each booking is for one guest. Booking for two or more? Complete the checkout once for each guest, or email info@sacredwellnessretreats.com and we will arrange it for you.
+              </p>
             </div>
             <div style={{ display: "flex", gap: 12 }}>
               <button className="btn-dark-outline" style={{ flex: 1, textAlign: "center" }} onClick={() => setStep(1)}>← Back</button>
@@ -1232,16 +1302,16 @@ function BookingPage() {
         )}
 
         {step === 3 && (() => {
-          const r = retreats.find(r => r.id === form.retreat) || retreats[0];
-          const total = parseInt(r.price.replace(/\D/g,"")) * form.guests;
-          const dep = parseInt(r.deposit.replace(/\D/g,"")) * form.guests;
+          const r = retreats.find(r => r.id === form.retreat) || bookable[0];
+          const total = parseInt(r.price.replace(/\D/g,""));
+          const dep = parseInt(r.deposit.replace(/\D/g,""));
           return (
             <div>
               <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", marginBottom: 8 }}>Payment</h2>
               <p style={{ color: theme.stone, fontSize: "0.9rem", marginBottom: 32 }}>Secure payment powered by Stripe.</p>
               <div style={{ background: theme.white, padding: "24px", marginBottom: 28 }}>
                 <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", marginBottom: 4 }}>{r.name}</p>
-                <p style={{ fontSize: "0.82rem", color: theme.stone, marginBottom: 20 }}>{r.dates} · {form.guests} guest{form.guests>1?"s":""}</p>
+                <p style={{ fontSize: "0.82rem", color: theme.stone, marginBottom: 20 }}>{r.dates} · 1 guest</p>
                 <div style={{ borderTop: `1px solid ${theme.beige}`, paddingTop: 16 }}>
                   {[["Retreat Price", `$${total.toLocaleString()}`], ["Deposit Option", `$${dep.toLocaleString()}`]].map(([l,v]) => (
                     <div key={l} style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
@@ -1255,7 +1325,7 @@ function BookingPage() {
                 {[
                   ["full", `Pay in Full — $${total.toLocaleString()}`],
                   ["deposit", `Pay Deposit — $${dep.toLocaleString()} (balance due 30 days before)`],
-                  ...(r.id === 4 && r.couplePrice ? [["couples", `Couples — ${r.couplePrice} (2 guests, save $800)`]] : []),
+                  ...(r.couplePrice && stripeLinks[r.id].couples ? [["couples", `Couples — ${r.couplePrice} (2 guests, save $800)`]] : []),
                 ].map(([val, label]) => (
                   <label key={val} style={{ display: "flex", gap: 14, padding: "16px 20px", border: `2px solid ${form.payment===val ? theme.olive : theme.beige}`, background: form.payment===val ? theme.white : "transparent", cursor: "pointer", transition: "all 0.2s" }}>
                     <input type="radio" checked={form.payment===val} onChange={() => upd("payment", val)} style={{ accentColor: theme.olive }} />
@@ -1376,7 +1446,7 @@ function AboutPage() {
             </blockquote>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 32, marginBottom: 72 }}>
-            {[["100+","Guests transformed"], ["3","Retreat locations"], ["8","Max group size"], ["9","Years hosting"]].map(([n,l]) => (
+            {[["100+","Guests transformed"], ["3","Countries hosted in"], ["5.0","Google rating · 20 reviews"], ["9","Years hosting"]].map(([n,l]) => (
               <div key={n} style={{ textAlign: "center", padding: "32px 20px", background: theme.white }}>
                 <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "3rem", color: theme.olive, marginBottom: 8 }}>{n}</p>
                 <p style={{ fontSize: "0.82rem", color: theme.stone, textTransform: "uppercase", letterSpacing: "0.1em" }}>{l}</p>
@@ -1402,7 +1472,8 @@ function ApplyPage() {
   const handleSubmit = async () => {
     setSubmitting(true);
     try {
-      const retreatName = retreats.find(r => r.id === parseInt(form.retreat))?.name || form.retreat;
+      const chosen = retreats.find(r => r.id === parseInt(form.retreat));
+      const retreatName = chosen ? `${chosen.name} — ${chosen.dates}` : form.retreat;
       await fetch("https://formspree.io/f/mbdponyn", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
@@ -1454,7 +1525,7 @@ function ApplyPage() {
               <select value={form.retreat} onChange={e => upd("retreat", e.target.value)}
                 style={{ width: "100%", padding: "14px 16px", border: `1px solid ${theme.beige}`, background: theme.white, fontSize: "0.95rem", fontFamily: "'DM Sans',sans-serif", outline: "none" }}>
                 <option value="">Select a retreat...</option>
-                {retreats.map(r => <option key={r.id} value={r.id}>{r.name} — {r.dates}</option>)}
+                {retreats.filter(r => !isPast(r)).map(r => <option key={r.id} value={r.id}>{r.name} — {r.dates}</option>)}
               </select>
             </div>
             <div>
@@ -1707,14 +1778,14 @@ function TermsPage() {
       title: "Retreat Bookings",
       content: `All retreat bookings are subject to availability. A booking is confirmed only upon receipt of your deposit or full payment and our written confirmation via email.
 
-Retreat prices are listed in USD and include accommodation, all meals, and scheduled programming as described on each retreat page. Prices do not include airfare, travel insurance, or personal expenses.
+Retreat prices are listed in USD and include what is listed under "What's Included" on each retreat page. Some events, such as day workshops, do not include accommodation or meals. Prices do not include airfare, travel insurance, or personal expenses.
 
 We reserve the right to make changes to retreat programming, facilitators, or venue where necessary. Material changes will be communicated to registered guests as soon as possible.`
     },
     {
       title: "Cancellation & Refund Policy",
       content: `Guest cancellations:
-• 60+ days before retreat start: full refund minus a $150 administrative fee
+• 60+ days before retreat start: full refund
 • 30–59 days before retreat start: 50% refund
 • Less than 30 days before retreat start: no refund; however, your booking may be transferred to another guest
 
@@ -1769,7 +1840,7 @@ We strongly recommend that all guests obtain comprehensive travel and health ins
         <div className="container" style={{ maxWidth: 760 }}>
           <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: theme.accent, display: "block", marginBottom: 16 }}>Legal</span>
           <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2.4rem, 6vw, 4rem)", fontWeight: 300, color: theme.white, lineHeight: 1.15 }}>Terms & Conditions</h1>
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.82rem", marginTop: 16 }}>Last updated: January 1, 2026</p>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.82rem", marginTop: 16 }}>Last updated: November 2026</p>
         </div>
       </div>
       <section style={{ background: theme.cream, padding: "80px 24px" }}>
@@ -1797,8 +1868,8 @@ We strongly recommend that all guests obtain comprehensive travel and health ins
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
 function AppInner() {
-  const location = window.location.pathname;
-  useSEO(location === "/" ? "home" : location.replace("/",""));
+  const { pathname } = useLocation();
+  useSEO(pathname);
   return (
     <>
       <style>{globalStyles}</style>
