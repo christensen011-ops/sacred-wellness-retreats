@@ -1394,7 +1394,7 @@ function AboutPage() {
                 Born into a lineage of both medical science and holistic wisdom, he understood the systems of health — but it was in stillness that he discovered something deeper. Through meditation, the nervous system began to settle, the mind grew quiet, and a different kind of intelligence revealed itself.
               </p>
               <p style={{ fontSize: "0.95rem", lineHeight: 1.8, color: theme.stone, marginBottom: 20 }}>
-                His path led him to India, where he lived among the Naga Babas, and across Mexico and Peru, sitting in ceremony with indigenous shamans and sacred medicines. Yet what stayed with him was not complexity — but clarity.
+                His path led him to India, where he lived among the Naga Babas, and across Mexico and Peru. Yet what stayed with him was not complexity — but clarity.
               </p>
               <p style={{ fontSize: "0.95rem", lineHeight: 1.8, color: theme.stone, marginBottom: 20 }}>
                 Today, his work is designed for those who have already done the work on the outside — who eat well, train hard, and think clearly — yet still feel a subtle tension beneath it all. A sense that something deeper is waiting.
