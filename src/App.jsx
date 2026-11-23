@@ -775,7 +775,13 @@ function RetreatCard({ variants }) {
     <div style={{ background: theme.white, overflow: "hidden", transition: "transform 0.3s", cursor: "pointer" }}
       onMouseEnter={e => e.currentTarget.style.transform = "translateY(-4px)"}
       onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}>
-      <div style={{ height: 220, backgroundImage: `url(${retreat.image})`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+      {/* A retreat without a photo of its own (venue not confirmed yet) shows a plain panel with its name, never a stand-in photo. */}
+      <div style={{ height: 220, background: theme.oliveDark, backgroundImage: retreat.image ? `url(${retreat.image})` : "none", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+        {!retreat.image && (
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.8rem", color: theme.white, fontStyle: "italic", fontWeight: 300, textAlign: "center", padding: "0 24px" }}>{retreat.name}</span>
+          </div>
+        )}
         <div style={{ position: "absolute", top: 16, left: 16, background: theme.olive, color: theme.cream, fontFamily: "'DM Sans',sans-serif", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", padding: "5px 12px" }}>
           {retreat.location}
         </div>
@@ -795,8 +801,9 @@ function RetreatCard({ variants }) {
           <p style={{ fontSize: "0.85rem", color: theme.stone, marginBottom: 8 }}>{retreat.dates}</p>
         )}
         <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 4, flexWrap: "wrap" }}>
-          <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.olive }}>{retreat.price} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>/ person</span></p>
-          {retreat.deposit && !past && <p style={{ fontSize: "0.78rem", color: theme.stone }}>or <span style={{ color: theme.bark, fontWeight: 500 }}>{retreat.deposit} deposit</span></p>}
+          <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.olive }}>{retreat.pricePrefix}{retreat.price} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>/ person</span></p>
+          {retreat.cardNote && !past && <p style={{ fontSize: "0.78rem", color: theme.stone }}>{retreat.cardNote}</p>}
+          {retreat.deposit && !past && !retreat.byApplication && <p style={{ fontSize: "0.78rem", color: theme.stone }}>or <span style={{ color: theme.bark, fontWeight: 500 }}>{retreat.deposit} deposit</span></p>}
           {past && <p style={{ fontSize: "0.78rem", color: theme.bark, fontWeight: 500 }}>Completed</p>}
         </div>
         {retreat.couplePrice && (
@@ -906,12 +913,14 @@ function RetreatDetailPage() {
   const past = isPast(retreat);
   const experiences = retreat.experiencesList || [];
   const seeDates = () => { navigate("/retreats"); window.scrollTo(0,0); };
+  // Application-only retreats (byApplication) take no payment on the site: every button opens the Apply form with this retreat chosen.
+  const apply = () => { navigate(`/apply?retreat=${retreat.id}`); window.scrollTo(0,0); };
 
   return (
     <>
       {/* Hero */}
       <div style={{ position: "relative", height: "70vh", minHeight: 480, overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${retreat.image})`, backgroundSize: "cover", backgroundPosition: "center" }} />
+        <div style={{ position: "absolute", inset: 0, background: theme.oliveDark, backgroundImage: retreat.image ? `url(${retreat.image})` : "none", backgroundSize: "cover", backgroundPosition: "center" }} />
         <div style={{ position: "absolute", inset: 0, background: "rgba(20,22,18,0.55)" }} />
         <div style={{ position: "relative", zIndex: 2, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "0 24px 56px" }}>
           <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%" }}>
@@ -924,6 +933,15 @@ function RetreatDetailPage() {
               <>
                 <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: theme.accent, marginBottom: 32 }}>This date has passed.</p>
                 <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={seeDates}>See Upcoming Dates</button>
+              </>
+            ) : retreat.byApplication ? (
+              <>
+                <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginBottom: 12, alignItems: "baseline" }}>
+                  <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: theme.white }}>{retreat.pricePrefix}{retreat.price} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: "rgba(255,255,255,0.6)" }}>per person</span></span>
+                  {retreat.cardNote && <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: theme.accent }}>{retreat.cardNote}</span>}
+                </div>
+                <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.85rem", marginBottom: 24 }}>No payment is taken until the venue is confirmed.</p>
+                <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={apply}>Reserve by Application</button>
               </>
             ) : (
               <>
@@ -963,6 +981,23 @@ function RetreatDetailPage() {
               <p style={{ fontSize: "1rem", lineHeight: 1.8, color: theme.stone }}>{retreat.description}</p>
             )}
           </div>
+          {retreat.different && (
+            <>
+              <hr className="divider" />
+              <div>
+                <span className="section-label">Why This Retreat</span>
+                <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 28, color: theme.charcoal }}>What Makes It Different</h2>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
+                  {retreat.different.map(([title, text], i) => (
+                    <div key={i} style={{ background: theme.white, padding: "24px", borderTop: `3px solid ${theme.olive}` }}>
+                      <h4 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.2rem", marginBottom: 8, color: theme.charcoal }}>{title}</h4>
+                      <p style={{ fontSize: "0.88rem", color: theme.stone, lineHeight: 1.7 }}>{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
           <hr className="divider" />
           {/* Experience */}
           <div>
@@ -1026,6 +1061,22 @@ function RetreatDetailPage() {
                 </a>
               </div>
             )}
+            {retreat.stayOptions && !past && (
+              <>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 12 }}>
+                  {retreat.stayOptions.map((o, i) => (
+                    <div key={i} style={{ background: theme.sand, padding: "16px 20px", borderLeft: `3px solid ${[theme.olive, theme.accent, theme.bark][i % 3]}`, flex: "1 1 200px" }}>
+                      <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.stone, marginBottom: 4 }}>{o.nights} · {o.days}</p>
+                      <p style={{ fontSize: "0.82rem", color: theme.stone, marginBottom: 8 }}>{o.dates}</p>
+                      <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.olive }}>{o.shared} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>shared room</span></p>
+                      <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.olive }}>{o.private} <span style={{ fontSize: "0.8rem", fontFamily: "'DM Sans',sans-serif", color: theme.stone }}>private room</span></p>
+                      {o.depositShared && <p style={{ fontSize: "0.78rem", color: theme.stone, marginTop: 8 }}>Deposit: <span style={{ color: theme.bark, fontWeight: 500 }}>{o.depositShared}</span> shared · <span style={{ color: theme.bark, fontWeight: 500 }}>{o.depositPrivate}</span> private</p>}
+                    </div>
+                  ))}
+                </div>
+                <p style={{ fontSize: "0.82rem", color: theme.stone, lineHeight: 1.7, marginBottom: 28 }}>Prices are per person in US dollars. {retreat.paymentNote}</p>
+              </>
+            )}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
               <div style={{ background: theme.white, padding: "28px", borderTop: `3px solid ${theme.olive}` }}>
                 <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.olive, marginBottom: 16 }}>✓ Included</p>
@@ -1050,6 +1101,18 @@ function RetreatDetailPage() {
               </div>
             </div>
           </div>
+          {retreat.notThis && (
+            <>
+              <hr className="divider" />
+              <div>
+                <span className="section-label">Good to Know</span>
+                <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 20, color: theme.charcoal }}>What This Retreat Is Not</h2>
+                <div style={{ background: theme.sand, padding: "28px", borderLeft: `3px solid ${theme.bark}` }}>
+                  <p style={{ fontSize: "0.92rem", color: theme.charcoal, lineHeight: 1.8 }}>{retreat.notThis}</p>
+                </div>
+              </div>
+            </>
+          )}
           {retreat.travelInfo && (
             <>
               <hr className="divider" />
@@ -1065,6 +1128,23 @@ function RetreatDetailPage() {
                     ))}
                   </ul>
                 </div>
+              </div>
+            </>
+          )}
+          {retreat.dailyRhythm && (
+            <>
+              <hr className="divider" />
+              <div>
+                <span className="section-label">Daily Rhythm</span>
+                <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 28, color: theme.charcoal }}>A Day on Retreat</h2>
+                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12 }}>
+                  {retreat.dailyRhythm.map(([time, what], i) => (
+                    <li key={i} style={{ display: "flex", gap: 16, fontSize: "0.92rem", color: theme.charcoal, lineHeight: 1.6 }}>
+                      <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.78rem", letterSpacing: "0.1em", color: theme.olive, flexShrink: 0, width: 64, marginTop: 2 }}>{time}</span>
+                      {what}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </>
           )}
@@ -1125,6 +1205,16 @@ function RetreatDetailPage() {
                   Questions? Reach us at info@sacredwellnessretreats.com
                 </p>
               </div>
+            ) : retreat.venueNote ? (
+              <div style={{ background: theme.white, padding: "36px", borderTop: `3px solid ${theme.olive}` }}>
+                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.charcoal, marginBottom: 12 }}>{retreat.venueNote.title}</p>
+                {retreat.venueNote.paragraphs.map((text, i) => (
+                  <p key={i} style={{ fontSize: "0.92rem", color: theme.stone, lineHeight: 1.8, marginTop: i ? 12 : 0 }}>{text}</p>
+                ))}
+                <p style={{ fontSize: "0.85rem", color: theme.olive, marginTop: 16, fontStyle: "italic" }}>
+                  Questions? Reach us at info@sacredwellnessretreats.com
+                </p>
+              </div>
             ) : (
               <div style={{ background: theme.white, padding: "36px", borderTop: `3px solid ${theme.olive}` }}>
                 <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", color: theme.charcoal, marginBottom: 12 }}>Venue to be announced</p>
@@ -1156,6 +1246,11 @@ function RetreatDetailPage() {
               <button className="btn-primary" style={{ fontSize: "0.9rem", padding: "16px 48px" }} onClick={seeDates}>See Upcoming Dates</button>
               <p style={{ fontSize: "0.82rem", color: theme.stone, marginTop: 12 }}>This date has passed.</p>
             </div>
+          ) : retreat.byApplication ? (
+            <div style={{ textAlign: "center", paddingTop: 20 }}>
+              <button className="btn-primary" style={{ fontSize: "0.9rem", padding: "16px 48px" }} onClick={apply}>Reserve by Application</button>
+              <p style={{ fontSize: "0.82rem", color: theme.stone, marginTop: 12, maxWidth: 520, marginLeft: "auto", marginRight: "auto", lineHeight: 1.6 }}>{retreat.paymentNote}</p>
+            </div>
           ) : (
             <div style={{ textAlign: "center", paddingTop: 20 }}>
               <button className="btn-primary" style={{ fontSize: "0.9rem", padding: "16px 48px" }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>
@@ -1180,9 +1275,13 @@ function RetreatDetailPage() {
       }}>
         <div>
           <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.8rem", color: "rgba(255,255,255,0.6)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{retreat.name}</p>
-          <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", color: theme.white }}>{retreat.dates} · <span style={{ color: theme.accent }}>{retreat.deposit} deposit</span> · {retreat.price} full</p>
+          {retreat.byApplication
+            ? <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", color: theme.white }}>{retreat.dates} · <span style={{ color: theme.accent }}>{retreat.pricePrefix}{retreat.price}</span></p>
+            : <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", color: theme.white }}>{retreat.dates} · <span style={{ color: theme.accent }}>{retreat.deposit} deposit</span> · {retreat.price} full</p>}
         </div>
-        <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>Book Now</button>
+        {retreat.byApplication
+          ? <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={apply}>Apply</button>
+          : <button className="btn-primary" style={{ background: theme.accent, color: theme.charcoal }} onClick={() => { navigate(`/booking/${retreat.id}`); window.scrollTo(0,0); }}>Book Now</button>}
       </div>}
     </>
   );
@@ -1203,7 +1302,7 @@ const stripeLinks = {
 };
 
 // Retreats that can be paid for right now: not past, and with Stripe links in place.
-const canBook = r => !r.comingSoon && !isPast(r) && Boolean(stripeLinks[r.id]);
+const canBook = r => !r.comingSoon && !r.byApplication && !isPast(r) && Boolean(stripeLinks[r.id]);
 
 // Several dates share one Stripe link, so the link alone does not say which date was paid for.
 // client_reference_id (a standard Stripe payment-link parameter) records the retreat and its start date on the payment,
@@ -1472,13 +1571,21 @@ function AboutPage() {
 function ApplyPage() {
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", retreat: "", why: "" });
+  // "Reserve by Application" buttons link here as /apply?retreat=<id>, so the retreat arrives already chosen.
+  const [form, setForm] = useState(() => {
+    const asked = new URLSearchParams(window.location.search).get("retreat");
+    const match = retreats.find(r => String(r.id) === asked && !isPast(r));
+    return { name: "", email: "", phone: "", retreat: match ? String(match.id) : "", stay: "", why: "" };
+  });
   const upd = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const chosen = retreats.find(r => r.id === parseInt(form.retreat));
+  const stayChoices = chosen && chosen.stayOptions
+    ? chosen.stayOptions.flatMap(o => [`${o.nights} · ${o.dates} · Shared room ${o.shared}`, `${o.nights} · ${o.dates} · Private room ${o.private}`])
+    : [];
 
   const handleSubmit = async () => {
     setSubmitting(true);
     try {
-      const chosen = retreats.find(r => r.id === parseInt(form.retreat));
       const retreatName = chosen ? `${chosen.name} — ${chosen.dates}` : form.retreat;
       await fetch("https://formspree.io/f/mbdponyn", {
         method: "POST",
@@ -1488,6 +1595,7 @@ function ApplyPage() {
           email: form.email,
           phone: form.phone,
           retreat: retreatName,
+          stay: form.stay,
           message: form.why,
         }),
       });
@@ -1528,12 +1636,25 @@ function ApplyPage() {
             ))}
             <div>
               <label style={{ display: "block", fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.olive, marginBottom: 8 }}>Retreat of Interest</label>
-              <select value={form.retreat} onChange={e => upd("retreat", e.target.value)}
+              <select value={form.retreat} onChange={e => setForm(f => ({ ...f, retreat: e.target.value, stay: "" }))}
                 style={{ width: "100%", padding: "14px 16px", border: `1px solid ${theme.beige}`, background: theme.white, fontSize: "0.95rem", fontFamily: "'DM Sans',sans-serif", outline: "none" }}>
                 <option value="">Select a retreat...</option>
                 {retreats.filter(r => !isPast(r)).map(r => <option key={r.id} value={r.id}>{r.name} — {r.dates}</option>)}
               </select>
+              {chosen && chosen.byApplication && (
+                <p style={{ fontSize: "0.82rem", color: theme.stone, lineHeight: 1.6, marginTop: 10 }}>{chosen.paymentNote}</p>
+              )}
             </div>
+            {stayChoices.length > 0 && (
+              <div>
+                <label style={{ display: "block", fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.olive, marginBottom: 8 }}>Length of Stay and Room</label>
+                <select value={form.stay} onChange={e => upd("stay", e.target.value)}
+                  style={{ width: "100%", padding: "14px 16px", border: `1px solid ${theme.beige}`, background: theme.white, fontSize: "0.95rem", fontFamily: "'DM Sans',sans-serif", outline: "none" }}>
+                  <option value="">Select your stay...</option>
+                  {stayChoices.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+            )}
             <div>
               <label style={{ display: "block", fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.15em", textTransform: "uppercase", color: theme.olive, marginBottom: 8 }}>Why are you seeking a reset?</label>
               <textarea rows={4} value={form.why} onChange={e => upd("why", e.target.value)}
