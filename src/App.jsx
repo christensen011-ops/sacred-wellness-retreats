@@ -265,6 +265,130 @@ const ascensionImmersiveFAQ = [
 
 const ascensionImage = "https://res.cloudinary.com/dyuinj9pz/image/upload/v1774315508/Jesus_Ishaya_Group_ld6dne.png";
 
+// ─── TULUM DEEP IMMERSION ─────────────────────────────────────────────────────
+// A general meditation retreat taught by Parmananda alone. It is NOT an Ishayas' Ascension course.
+// Application-only: no Stripe links exist and the venue is not confirmed, so the site takes no payment for it.
+// Guests apply; once the venue is confirmed the owner sends each guest a secure payment link.
+// image: null on purpose. Add a real photo of the confirmed venue here, never a stand-in.
+const immersionFAQ = [
+  ["Do I need to have meditated before?", "No. The practice is taught from the beginning in the first three days. Experienced meditators are welcome too."],
+  ["Is this an Ishayas' Ascension course?", "No. This is a general meditation retreat. The Ishayas' Ascension is taught in our separate workshops and retreats."],
+  ["Is the whole retreat silent?", "No. Evenings and early mornings are silent, from 9pm until after breakfast. The 5-night stay adds one silent morning and the 7-night stay adds one full silent day. The rest of the time you can talk, and you can always speak with your teacher."],
+  ["Will we go out and see Tulum?", "This retreat stays in. The group lives and practises in one house, and that is the point. There is one optional outing to swim at a cenote. If you want to explore Tulum, add a day or two before or after."],
+  ["Do I have to do the yoga or sit on the floor?", "No. Yoga is gentle and optional, and chairs are always available."],
+  ["Can I come on my own?", "Yes. You are welcome on your own. The group is small, and you will know everyone by the first evening."],
+  ["How do I reserve, and when do I pay?", "Apply with the button on this page. No payment is taken until the venue is confirmed. We then send you a secure payment link for the 25% deposit, and the balance is due 30 days before the retreat."],
+  ["What is your cancellation policy?", "Full refund up to 60 days before the retreat. 50% refund 30–60 days out. No refunds within 30 days, though your spot can be transferred."],
+];
+
+const immersionStays = (threeNights, fiveNights, sevenNights) => [
+  { nights: "3 nights", days: "Thursday to Sunday", dates: threeNights, shared: "$890", private: "$1,150", depositShared: "$225", depositPrivate: "$290" },
+  { nights: "5 nights", days: "Thursday to Tuesday", dates: fiveNights, shared: "$1,340", private: "$1,740", depositShared: "$335", depositPrivate: "$435" },
+  { nights: "7 nights", days: "Thursday to Thursday", dates: sevenNights, shared: "$1,690", private: "$2,190", depositShared: "$425", depositPrivate: "$550" },
+];
+
+const deepImmersion = {
+  group: "tulum-deep-immersion",
+  name: "Tulum Deep Immersion",
+  location: "Tulum, Mexico",
+  byApplication: true,
+  price: "$890",
+  pricePrefix: "From ",
+  deposit: "$225",
+  cardNote: "3, 5 or 7 nights",
+  paymentNote: "Reserve by application. No payment is taken until the venue is confirmed. We then send you a secure payment link for the 25% deposit, and the balance is due 30 days before the retreat.",
+  image: null,
+  tagline: "A meditation retreat where meditation is the whole point. One quiet house near Tulum, one teacher, 10 guests at most. Stay 3, 5 or 7 nights.",
+  description: "This is a general meditation retreat, taught by Parmananda in every session, from the beginning. No experience is needed. The whole group stays and practises together in one private house near Tulum, away from the beach strip. We stay in, together: four to five hours of guided practice a day, silence every night and morning, simple vegetarian food, and time to rest. Everyone arrives on the same Thursday and stays 3, 5 or 7 nights. Each length is a complete retreat with its own closing.",
+  different: [
+    ["Meditation is the reason you come", "Most retreats offer one short sitting before a day of other things. Here the day is built around practice."],
+    ["We stay in, together", "This is not a sightseeing week. One quiet house, one group, one practice room. You unpack once and the outside world can wait."],
+    ["One teacher, ten guests at most", "Parmananda teaches every session himself and spends one-to-one time with each guest."],
+    ["Real silence, held kindly", "Evenings and early mornings are silent. Longer stays add a silent morning and one full silent day. Your teacher is always available, and you can speak with him at any time."],
+    ["Stay 3, 5 or 7 nights", "Each length ends on a planned closing, so nobody leaves in the middle of something."],
+    ["Nothing extreme", "No alcohol, no substances, no fasting. Simple food, gentle optional yoga, and plenty of rest."],
+    ["You leave with a practice", "Before you go, you and your teacher write a 30-day plan for practising at home."],
+  ],
+  experienceHeading: "Meditation First",
+  experiencesList: [
+    "Four to five hours of guided meditation a day, taught step by step",
+    "One teacher for the whole retreat, and one-to-one time with him",
+    "A small group: 10 guests at most",
+    "Silence every night from 9pm until after breakfast",
+    "A silent morning on the 5-night stay, and one full silent day on the 7-night stay",
+    "Gentle optional yoga each morning",
+    "Simple vegetarian meals, cooked fresh",
+    "One 60-minute massage on the 5- and 7-night stays",
+    "A written 30-day practice plan to take home",
+  ],
+  included: [
+    "3, 5 or 7 nights in a shared twin room or a private room",
+    "All vegetarian meals from Thursday dinner to brunch on your last day, with fruit, tea, coffee and drinking water through the day",
+    "All meditation teaching and guided practice with Parmananda",
+    "One-to-one time with your teacher",
+    "Gentle yoga each morning (optional)",
+    "One 60-minute massage on the 5- and 7-night stays",
+    "Meditation cushions, chairs and yoga mats",
+    "A written 30-day home practice plan",
+  ],
+  excluded: [
+    "Flights",
+    "Airport transfers",
+    "Travel and medical insurance",
+    "The optional cenote outing (entrance about 300 pesos, paid on the day)",
+    "Extra massages, personal expenses and tips",
+  ],
+  notThis: "This retreat is rest, practice and teaching. It is not therapy or medical treatment, and it does not treat, cure or diagnose any condition. After you apply we send you a short, private health form, so we can check the retreat is right for you before you pay anything.",
+  travelInfo: {
+    title: "Getting There",
+    items: [
+      "Fly into Cancún International Airport (CUN), about 1.5 to 2 hours from Tulum by road",
+      "A private van from Cancún airport to Tulum costs about $120 to $150 per vehicle each way, and can be shared between guests arriving at similar times",
+      "Once you are in Tulum, you can use Uber or a taxi locally",
+      "Check-in is on Thursday between 2pm and 5pm. The retreat opens at 5:30pm",
+      "We strongly recommend purchasing travel insurance before booking",
+    ],
+  },
+  dailyRhythm: [
+    ["6:30am", "Wake-up bell. Silence continues from the night before"],
+    ["7:00am", "Morning meditation"],
+    ["8:15am", "Gentle yoga (optional)"],
+    ["9:30am", "Breakfast. Silence ends"],
+    ["11:00am", "Teaching and guided practice"],
+    ["1:30pm", "Lunch"],
+    ["2:30pm", "Rest, massage times, and one-to-one time with your teacher"],
+    ["4:30pm", "Afternoon practice: sitting and slow walking"],
+    ["6:30pm", "Dinner"],
+    ["7:45pm", "Evening gathering: questions, a short talk, a last sitting"],
+    ["9:00pm", "Silence begins"],
+  ],
+  itinerary: [
+    { day: "Thursday — Day 1", title: "Arrive and Settle", content: "Arrive between 2pm and 5pm. Welcome circle at 5:30pm, dinner, a first short guided sitting, and an early night." },
+    { day: "Friday — Day 2", title: "Learn, Part One", content: "The daily rhythm begins. The practice is taught from the beginning, one step at a time. First one-to-one conversations with your teacher in the afternoon." },
+    { day: "Saturday — Day 3", title: "Learn, Part Two", content: "The second part of the teaching and longer guided sittings. A restful afternoon; anyone who wishes can join one optional outing to swim at a cenote nearby. In the evening, the closing circle for guests staying 3 nights." },
+    { day: "Sunday — Day 4", title: "First Closing, Then Rest", content: "Morning meditation, yoga and brunch. Guests on the 3-night stay have their home-practice session and leave at noon with a written 30-day plan. For everyone else: a slow afternoon, the first massage times, and the evening gathering." },
+    { day: "Monday — Day 5", title: "Deepen", content: "A silent morning that lasts until lunch, and three longer practice sessions. Massage and one-to-one time in the afternoon. In the evening, the closing circle for guests staying 5 nights." },
+    { day: "Tuesday — Day 6", title: "Second Closing, Then Into Silence", content: "Morning practice and brunch. Guests on the 5-night stay have their home-practice session and leave at noon. For those staying: a quiet afternoon and a briefing on the silent day. Full silence begins at 9pm." },
+    { day: "Wednesday — Day 7", title: "The Silent Day", content: "Silence until 6pm, including meals. Sitting and slow walking alternate through the day, with no phones and no reading. Your teacher is available for private conversations all day. At 6pm the silence ends with a closing circle and a final dinner together." },
+    { day: "Thursday — Day 8", title: "Go Home", content: "A final sitting at 7am, brunch, your home-practice session, and departure at 11am." },
+  ],
+  venueNote: {
+    title: "Venue to Be Confirmed",
+    paragraphs: [
+      "One private house or retreat property near Tulum, where the whole group stays and practises together. The venue is confirmed to every guest before any payment is taken.",
+      "Shared twin room: two single beds, shared with one other guest. Private room: a room to yourself.",
+      "We show no photos here until the venue is confirmed, so every photo you see of it will be the real place.",
+    ],
+  },
+  faq: immersionFAQ,
+};
+
+const deepImmersionRetreats = [
+  { ...deepImmersion, id: 12, groupLabel: "Feb 18–25, 2027", dates: "Feb 18–25, 2027", start: "2027-02-18", end: "2027-02-25", stayOptions: immersionStays("Feb 18–21", "Feb 18–23", "Feb 18–25") },
+  { ...deepImmersion, id: 13, groupLabel: "Apr 8–15, 2027", dates: "Apr 8–15, 2027", start: "2027-04-08", end: "2027-04-15", stayOptions: immersionStays("Apr 8–11", "Apr 8–13", "Apr 8–15") },
+  { ...deepImmersion, id: 14, groupLabel: "May 13–20, 2027", dates: "May 13–20, 2027", start: "2027-05-13", end: "2027-05-20", stayOptions: immersionStays("May 13–16", "May 13–18", "May 13–20") },
+];
+
 // --- PAUSED: Belize First Sphere Workshop — on hold for now, not shown on the site ---
 // To bring it back, paste this object into the `retreats` array below and restore its
 // stripeLinks entry (2: same $250/$125 links as the other First Sphere sessions).
@@ -370,6 +494,7 @@ const retreats = [
       { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm. Potluck-style shared meal." },
     ],
   },
+  ...deepImmersionRetreats,
   {
     id: 7,
     group: "ascension-immersive",
