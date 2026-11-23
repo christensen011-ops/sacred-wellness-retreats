@@ -280,7 +280,7 @@ const ascensionImage = "https://res.cloudinary.com/dyuinj9pz/image/upload/v17743
     lodgingNote: "This is a day workshop — lodging isn't included. We're happy to share local accommodation recommendations for the Orange Walk area once you register.",
     tagline: "The First Sphere Ascension course, held at the foot of ancient Maya temples — open to complete beginners and experienced meditators alike.",
     image: ascensionImage,
-    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. Held at the Mayan Garden in Orange Walk, this workshop introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend.",
+    description: "Ascension is an easy meditation technique taught by the Ishayas. Held at the Mayan Garden in Orange Walk, this workshop introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend.",
     experienceHeading: "Learn to Ascend",
     experiencesList: ["Guided Ascension meditation instruction, all levels welcome", "Free Friday evening introduction session", "Full Saturday & Sunday training, 10am–6pm", "Community potluck-style meals Saturday & Sunday", "Tea and light snacks Friday evening"],
     included: [
@@ -316,7 +316,7 @@ const retreats = [
     lodgingNote: "This is a day workshop — lodging isn't included. We're happy to share local accommodation recommendations for Monterrey once you register.",
     tagline: "The First Sphere Ascension course — open to complete beginners and experienced meditators alike. No prior experience required.",
     image: ascensionImage,
-    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. This workshop in Monterrey introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
+    description: "Ascension is an easy meditation technique taught by the Ishayas. This workshop in Monterrey introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
     experienceHeading: "Learn to Ascend",
     experiencesList: ["Guided Ascension meditation instruction, all levels welcome", "Free Friday evening introduction session", "Full Saturday & Sunday training, 10am–6pm", "Community potluck-style meals Saturday & Sunday", "Tea and light snacks Friday evening"],
     included: [
@@ -350,7 +350,7 @@ const retreats = [
     travelNote: "Most guests fly into Tulum International Airport (TQO). Taxi service can be arranged for each guest at third-party cost — whatever the market rate is at the time.",
     tagline: "The First Sphere Ascension course — open to complete beginners and experienced meditators alike. No prior experience required.",
     image: ascensionImage,
-    description: "Ascension is a profoundly effective and easy technique to immediately and permanently rise beyond the stress of self-limiting beliefs — dissolving stress to reveal unconditional joy. This workshop in Tulum introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
+    description: "Ascension is an easy meditation technique taught by the Ishayas. This workshop in Tulum introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
     experienceHeading: "Learn to Ascend",
     experiencesList: ["Guided Ascension meditation instruction, all levels welcome", "Free Friday evening introduction session", "Full Saturday & Sunday training, 10am–6pm", "Community potluck-style meals Saturday & Sunday", "Tea and light snacks Friday evening"],
     included: [
@@ -434,7 +434,7 @@ const retreats = [
     image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336873/IMG_5900_p1f2im.jpg",
     description: "Begin in the vibrant colonial city of Oaxaca — its baroque churches, world-renowned cuisine, and living indigenous culture setting the stage for what's to come. On Day 2, a private van carries you up into the Sierra Sur mountains to San José del Pacífico, perched at 8,200 feet among ancient pine forest and sweeping valley views. You'll stay in cozy private cabanas, hike sacred mountain trails, eat delicious home-cooked meals, and be guided through meditation and inner practice every step of the way. Completely all-inclusive. Intentionally small — limited to 8 guests.",
     experienceHeading: "Six Nights of Deep Restoration",
-    experiencesList: ["Daily meditation & breathwork", "Yoga & mindful movement", "Nervous system regulation practices", "Group integration sessions", "Clean, nourishing meals", "1:1 somatic coaching session", "Nature immersions & ceremonies"],
+    experiencesList: ["Daily meditation & breathwork", "Yoga & mindful movement", "Rest and stillness practices", "Group integration sessions", "Clean, nourishing meals", "1:1 somatic coaching session", "Nature immersions & ceremonies"],
     included: [
       "6 nights accommodation — 1 night Oaxaca City, 4 nights mountain cabanas in San José del Pacífico, 1 night Oaxaca City",
       "Airport pickup on arrival and drop-off on departure day (Oaxaca City — OAX)",
@@ -483,7 +483,7 @@ const retreats = [
     image: "https://res.cloudinary.com/dyuinj9pz/image/upload/v1782336873/IMG_5900_p1f2im.jpg",
     description: "Begin in the vibrant colonial city of Oaxaca — its baroque churches, world-renowned cuisine, and living indigenous culture setting the stage for what's to come. On Day 2, a private van carries you up into the Sierra Sur mountains to San José del Pacífico, perched at 8,200 feet among ancient pine forest and sweeping valley views. You'll stay in cozy private cabanas, hike sacred mountain trails, eat delicious home-cooked meals, and be guided through meditation and inner practice every step of the way. Completely all-inclusive. Intentionally small — limited to 8 guests.",
     experienceHeading: "Six Nights of Deep Restoration",
-    experiencesList: ["Daily meditation & breathwork", "Yoga & mindful movement", "Nervous system regulation practices", "Group integration sessions", "Clean, nourishing meals", "1:1 somatic coaching session", "Nature immersions & ceremonies"],
+    experiencesList: ["Daily meditation & breathwork", "Yoga & mindful movement", "Rest and stillness practices", "Group integration sessions", "Clean, nourishing meals", "1:1 somatic coaching session", "Nature immersions & ceremonies"],
     included: [
       "6 nights accommodation — 1 night Oaxaca City, 4 nights mountain cabanas in San José del Pacífico, 1 night Oaxaca City",
       "Airport pickup on arrival and drop-off on departure day (Oaxaca City — OAX)",
@@ -656,13 +656,13 @@ function Hero() {
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(30,30,25,0.55) 0%, rgba(20,22,18,0.45) 60%, rgba(10,12,8,0.7) 100%)" }} />
       <div style={{ position: "relative", zIndex: 2, minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", padding: "80px 24px 60px" }}>
         <span className="fade-in" style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", color: theme.accent, marginBottom: 24, display: "block" }}>
-          ✦ Transformational Wellness Retreats
+          ✦ Small-Group Meditation & Wellness Retreats
         </span>
         <h1 className="fade-in delay-1" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2.6rem, 7vw, 5rem)", fontWeight: 300, color: theme.white, lineHeight: 1.12, marginBottom: 24, maxWidth: 700 }}>
           Reset Your Mind.<br />Recalibrate Your Body.<br /><em>Return Renewed.</em>
         </h1>
         <p className="fade-in delay-2" style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "1rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.7, maxWidth: 480, marginBottom: 44 }}>
-          Curated wellness retreats designed for deep rest, cultural immersion, and genuine inner transformation. Intentionally small.
+          Curated wellness retreats designed for deep rest, cultural immersion, and meditation practice. Intentionally small.
         </p>
         <div className="fade-in delay-3" style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
           <button className="btn-primary" onClick={() => { navigate("/retreats"); window.scrollTo(0,0); }}>View Retreat Dates</button>
@@ -680,17 +680,17 @@ function Hero() {
 // ─── PILLARS ──────────────────────────────────────────────────────────────────
 function Pillars() {
   const items = [
-    { icon: "◎", title: "Nervous System Reset", desc: "Deep rest in nature, guided meditation, and stillness practices that restore your baseline and bring you back to yourself." },
+    { icon: "◎", title: "Deep Rest", desc: "Time in nature, guided meditation, and stillness. Room to slow down, rest, and come back to yourself." },
     { icon: "◇", title: "Cultural Immersion", desc: "Authentic local experiences — food, people, landscapes — that expand perspective and awaken a sense of aliveness." },
-    { icon: "○", title: "Guided Meditation", desc: "Daily practice led by a certified Ishayas' Ascension teacher. Accessible for all levels, deeply effective for all who show up." },
-    { icon: "△", title: "Nature & Restoration", desc: "Mountains, forests, open skies — environments that do the work simply by being what they are. Rest is transformation here." },
+    { icon: "○", title: "Guided Meditation", desc: "Daily practice led by a certified Ishayas' Ascension teacher. Accessible for all levels, from first-timers to long-time meditators." },
+    { icon: "△", title: "Nature & Restoration", desc: "Mountains, forests, open skies — environments that invite rest simply by being what they are." },
   ];
   return (
     <section style={{ background: theme.cream, padding: "80px 24px" }}>
       <div className="container">
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span className="section-label">The Method</span>
-          <h2 className="section-title">Four Pillars of Transformation</h2>
+          <h2 className="section-title">Four Pillars of Our Retreats</h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 40 }}>
           {items.map((it, i) => (
@@ -942,7 +942,7 @@ function RetreatDetailPage() {
           {/* Overview */}
           <div>
             <span className="section-label">Overview</span>
-            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 20, color: theme.charcoal }}>Your Transformation Awaits</h2>
+            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 400, marginBottom: 20, color: theme.charcoal }}>About This Retreat</h2>
             {retreat.group === "oaxaca" ? (
               <>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr", gap: 24, alignItems: "center" }} className="pine-layout">
@@ -1425,7 +1425,7 @@ function AboutPage() {
                 Born into a lineage of both medical science and holistic wisdom, he understood the systems of health — but it was in stillness that he discovered something deeper. Through meditation, the nervous system began to settle, the mind grew quiet, and a different kind of intelligence revealed itself.
               </p>
               <p style={{ fontSize: "0.95rem", lineHeight: 1.8, color: theme.stone, marginBottom: 20 }}>
-                His path led him to India, where he lived among the Naga Babas, and across Mexico and Peru, sitting in ceremony with indigenous shamans and sacred medicines. Yet what stayed with him was not complexity — but clarity: the body does not need to be forced into healing, only guided back into alignment.
+                His path led him to India, where he lived among the Naga Babas, and across Mexico and Peru, sitting in ceremony with indigenous shamans and sacred medicines. Yet what stayed with him was not complexity — but clarity.
               </p>
               <p style={{ fontSize: "0.95rem", lineHeight: 1.8, color: theme.stone, marginBottom: 20 }}>
                 Today, his work is designed for those who have already done the work on the outside — who eat well, train hard, and think clearly — yet still feel a subtle tension beneath it all. A sense that something deeper is waiting.
@@ -1436,17 +1436,20 @@ function AboutPage() {
               <p style={{ fontSize: "0.95rem", lineHeight: 1.8, color: theme.stone, fontStyle: "italic" }}>
                 Those who find their way here are not searching for more. They are ready for what is real.
               </p>
+              <p style={{ fontSize: "0.82rem", lineHeight: 1.7, color: theme.stone, marginTop: 20 }}>
+                Our retreats offer rest, practice, and teaching. They are not medical or psychological treatment.
+              </p>
             </div>
           </div>
           <hr className="divider" style={{ marginBottom: 72 }} />
           <div style={{ textAlign: "center", maxWidth: 600, margin: "0 auto 72px" }}>
             <span className="section-label">Our Philosophy</span>
             <blockquote style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(1.4rem, 3.5vw, 2rem)", fontWeight: 300, fontStyle: "italic", lineHeight: 1.5, color: theme.charcoal }}>
-              "We believe real change happens when the nervous system is regulated and the mind is clear."
+              "We believe real change happens when the body is rested and the mind is clear."
             </blockquote>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 32, marginBottom: 72 }}>
-            {[["100+","Guests transformed"], ["3","Countries hosted in"], ["5.0","Google rating · 20 reviews"], ["9","Years hosting"]].map(([n,l]) => (
+            {[["100+","Guests hosted"], ["3","Countries hosted in"], ["5.0","Google rating · 20 reviews"], ["9","Years hosting"]].map(([n,l]) => (
               <div key={n} style={{ textAlign: "center", padding: "32px 20px", background: theme.white }}>
                 <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "3rem", color: theme.olive, marginBottom: 8 }}>{n}</p>
                 <p style={{ fontSize: "0.82rem", color: theme.stone, textTransform: "uppercase", letterSpacing: "0.1em" }}>{l}</p>
@@ -1629,7 +1632,7 @@ function Footer() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 40, marginBottom: 48 }}>
           <div>
             <img src="/logo-silhouette-cream.png" alt="Sacred Wellness Retreats" style={{ height: 80, width: "auto", objectFit: "contain", marginBottom: 16 }} />
-            <p style={{ fontSize: "0.82rem", lineHeight: 1.7 }}>Curated wellness retreats for deep rest, cultural immersion, and genuine inner transformation.</p>
+            <p style={{ fontSize: "0.82rem", lineHeight: 1.7 }}>Curated wellness retreats for deep rest, cultural immersion, and meditation practice.</p>
           </div>
           <div>
             <p style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginBottom: 16 }}>Navigate</p>
