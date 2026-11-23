@@ -338,6 +338,39 @@ const retreats = [
     ],
   },
   {
+    id: 11,
+    group: "ascension-weekend",
+    groupLabel: "Jan 15–17, 2027 · Houston",
+    name: "Ishayas' First Sphere Ascension Workshop",
+    location: "Houston, Texas, USA",
+    dates: "Jan 15–17, 2027",
+    start: "2027-01-15",
+    end: "2027-01-17",
+    price: "$250",
+    deposit: "$125",
+    noLodging: true,
+    lodgingNote: "This is a day workshop — lodging isn't included. We're happy to share local accommodation recommendations for Houston once you register.",
+    tagline: "The First Sphere Ascension course — open to complete beginners and experienced meditators alike. No prior experience required.",
+    image: ascensionImage,
+    description: "Ascension is an easy meditation technique taught by the Ishayas. This workshop in Houston introduces the practice through guided instruction open to complete beginners as well as anyone deepening their practice. No experience or belief required — even children learn to ascend. Exact venue shared with registered guests.",
+    experienceHeading: "Learn to Ascend",
+    experiencesList: ["Guided Ascension meditation instruction, all levels welcome", "Free Friday evening introduction session", "Full Saturday & Sunday training, 10am–6pm", "Community potluck-style meals Saturday & Sunday", "Tea and light snacks Friday evening"],
+    included: [
+      "Free Friday evening introduction session, 6:45–8:30pm — the paid class then begins and runs until 10pm",
+      "Guided Ascension instruction — Saturday & Sunday, 10am–6pm",
+      "Personal instruction and all course materials",
+      "Tea and light snacks Friday evening",
+      "Community potluck-style shared meals Saturday & Sunday — bring a dish to share",
+    ],
+    excluded: ["Lodging / accommodation", "Travel to and from the venue", "Personal expenses"],
+    faq: ascensionWeekendFAQ,
+    itinerary: [
+      { day: "Friday", title: "Free Introduction", content: "A free introductory session open to all, no cost to attend, 6:45–8:30pm. The paid class begins at 8:30pm and runs until 10pm. Tea and light snacks provided." },
+      { day: "Saturday", title: "Ascension Training", content: "A full day of guided Ascension instruction and practice. 10am–6pm. Potluck-style shared dinner." },
+      { day: "Sunday", title: "Ascension Training & Closing", content: "Continued instruction, integration, and a closing circle. 10am–6pm. Potluck-style shared meal." },
+    ],
+  },
+  {
     id: 7,
     group: "ascension-immersive",
     groupLabel: "Mar 4–10, 2027 · 7 days",
@@ -1160,6 +1193,7 @@ const stripeLinks = {
   // $250 First Sphere Workshop — $125 deposit. These two links are the same for every First Sphere date;
   // the date is recorded on the payment by checkoutUrl() below.
   10: { deposit: "https://buy.stripe.com/4gM7sM3e5dWTfTAen84800k", full: "https://buy.stripe.com/7sY00kcOF5qn0YGen84800j" },
+  11: { deposit: "https://buy.stripe.com/4gM7sM3e5dWTfTAen84800k", full: "https://buy.stripe.com/7sY00kcOF5qn0YGen84800j" },
   4: { deposit: "https://buy.stripe.com/eVqbJ2g0R2ebbDkcf04800f", full: "https://buy.stripe.com/14A6oI9Ct9GD4aSa6S4800e", couples: "https://buy.stripe.com/3cIbJ2dSJ063cHoen84800g" },
   6: { deposit: "https://buy.stripe.com/eVqbJ2g0R2ebbDkcf04800f", full: "https://buy.stripe.com/14A6oI9Ct9GD4aSa6S4800e", couples: "https://buy.stripe.com/3cIbJ2dSJ063cHoen84800g" },
   // $450 7-Day Ascension Retreat — $150 deposit
