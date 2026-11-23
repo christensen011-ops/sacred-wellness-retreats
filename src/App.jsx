@@ -426,7 +426,113 @@ const deepImmersionRetreats = [
   },
 */
 
+// ─── TULUM 3-NIGHT MEDITATION IMMERSION (December 2026) ──────────────────────
+// A first small group. Application-only, like the Deep Immersion: no Stripe link exists and the venue is not
+// confirmed, so the site takes no payment. Once the venue is confirmed the owner sends a secure link for the full price.
+// image: null on purpose. Add a real photo of the confirmed venue here, never a stand-in.
+const tulumThreeNight = {
+  id: 15,
+  name: "Tulum 3-Night Meditation Immersion",
+  location: "Tulum, Mexico",
+  dates: "Dec 10–13, 2026",
+  start: "2026-12-10",
+  end: "2026-12-13",
+  byApplication: true,
+  price: "$690",
+  pricePrefix: "From ",
+  cardNote: "3 nights · small group",
+  paymentNote: "Reserve by application. No payment is taken until the venue is confirmed. We then send you a secure payment link for the full price.",
+  image: null,
+  tagline: "Three nights to learn meditation from the beginning, in one quiet house near Tulum. A small group, by application, at an introductory price.",
+  description: "A long weekend built around meditation, taught by Parmananda in every session, from the beginning. No experience is needed. The whole group stays and practises together in one private house near Tulum, away from the beach strip. We stay in, together: four to five hours of guided practice a day, silence every night and morning, simple vegetarian food, and time to rest. This is the first small group for our new meditation retreats in Tulum, so the price is an introductory one. The retreat runs with a minimum of 4 guests.",
+  different: [
+    ["Meditation is the reason you come", "Most retreats offer one short sitting before a day of other things. Here the day is built around practice."],
+    ["We stay in, together", "This is not a sightseeing weekend. One quiet house, one group, one practice room."],
+    ["One teacher, a small group", "Parmananda teaches every session himself and spends one-to-one time with each guest."],
+    ["Nothing extreme", "No alcohol, no substances, no fasting. Simple food, gentle optional yoga, and plenty of rest."],
+    ["You leave with a practice", "Before you go, you and your teacher write a 30-day plan for practising at home."],
+  ],
+  experienceHeading: "Three Nights of Practice",
+  experiencesList: [
+    "Four to five hours of guided meditation a day, taught step by step",
+    "One teacher for the whole retreat, and one-to-one time with him",
+    "A small group, by application",
+    "Silence every night from 9pm until after breakfast",
+    "Gentle optional yoga each morning",
+    "Simple vegetarian meals, cooked fresh",
+    "A written 30-day practice plan to take home",
+  ],
+  stayOptions: [
+    { nights: "3 nights", days: "Thursday to Sunday", dates: "Dec 10–13", shared: "$690", private: "$890" },
+  ],
+  included: [
+    "3 nights in a shared twin room or a private room",
+    "All vegetarian meals from Thursday dinner to Sunday brunch, with fruit, tea, coffee and drinking water through the day",
+    "All meditation teaching and guided practice with Parmananda",
+    "One-to-one time with your teacher",
+    "Gentle yoga each morning (optional)",
+    "Meditation cushions, chairs and yoga mats",
+    "A written 30-day home practice plan",
+  ],
+  excluded: [
+    "Flights",
+    "Airport transfers",
+    "Travel and medical insurance",
+    "The optional cenote outing (entrance about 300 pesos, paid on the day)",
+    "Personal expenses and tips",
+  ],
+  notThis: "This retreat is rest, practice and teaching. It is not therapy or medical treatment, and it does not treat, cure or diagnose any condition. After you apply we send you a short, private health form, so we can check the retreat is right for you before you pay anything.",
+  travelInfo: {
+    title: "Getting There",
+    items: [
+      "Fly into Cancún International Airport (CUN), about 1.5 to 2 hours from Tulum by road",
+      "A private van from Cancún airport to Tulum costs about $120 to $150 per vehicle each way, and can be shared between guests arriving at similar times",
+      "Once you are in Tulum, you can use Uber or a taxi locally",
+      "Check-in is on Thursday between 2pm and 5pm. The retreat opens at 5:30pm",
+      "We strongly recommend purchasing travel insurance before booking",
+    ],
+  },
+  dailyRhythm: [
+    ["6:30am", "Wake-up bell. Silence continues from the night before"],
+    ["7:00am", "Morning meditation"],
+    ["8:15am", "Gentle yoga (optional)"],
+    ["9:30am", "Breakfast. Silence ends"],
+    ["11:00am", "Teaching and guided practice"],
+    ["1:30pm", "Lunch"],
+    ["2:30pm", "Rest, and one-to-one time with your teacher"],
+    ["4:30pm", "Afternoon practice: sitting and slow walking"],
+    ["6:30pm", "Dinner"],
+    ["7:45pm", "Evening gathering: questions, a short talk, a last sitting"],
+    ["9:00pm", "Silence begins"],
+  ],
+  itinerary: [
+    { day: "Thursday — Day 1", title: "Arrive and Settle", content: "Arrive between 2pm and 5pm. Welcome circle at 5:30pm, dinner, a first short guided sitting, and an early night." },
+    { day: "Friday — Day 2", title: "Learn, Part One", content: "The daily rhythm begins. The practice is taught from the beginning, one step at a time. First one-to-one conversations with your teacher in the afternoon." },
+    { day: "Saturday — Day 3", title: "Learn, Part Two", content: "The second part of the teaching and longer guided sittings. A restful afternoon; anyone who wishes can join one optional outing to swim at a cenote nearby. In the evening, the closing circle." },
+    { day: "Sunday — Day 4", title: "Go Home", content: "Morning meditation, yoga and brunch, then your home-practice session: a written plan for your first 30 days at home. Departure at noon." },
+  ],
+  venueNote: {
+    title: "Venue to Be Confirmed",
+    paragraphs: [
+      "One private house or retreat property near Tulum, where the whole group stays and practises together. The venue is confirmed to every guest before any payment is taken.",
+      "Shared twin room: two single beds, shared with one other guest. Private room: a room to yourself.",
+      "We show no photos here until the venue is confirmed, so every photo you see of it will be the real place.",
+    ],
+  },
+  faq: [
+    ["Do I need to have meditated before?", "No. The practice is taught from the beginning. Experienced meditators are welcome too."],
+    ["Is this an Ishayas' Ascension course?", "No. This is a general meditation retreat. The Ishayas' Ascension is taught in our separate workshops and retreats."],
+    ["Does it definitely run?", "It runs with a minimum of 4 guests. No payment is taken until the venue is confirmed, and if the retreat does not run, anything you have paid is refunded in full."],
+    ["Why is the price lower than your other Tulum retreats?", "This is the first small group for our new meditation retreats in Tulum, so we are offering an introductory price."],
+    ["Is the whole retreat silent?", "No. Evenings and early mornings are silent, from 9pm until after breakfast. The rest of the time you can talk, and you can always speak with your teacher."],
+    ["Do I have to do the yoga or sit on the floor?", "No. Yoga is gentle and optional, and chairs are always available."],
+    ["How do I reserve, and when do I pay?", "Apply with the button on this page. No payment is taken until the venue is confirmed. We then send you a secure payment link for the full price."],
+    ["What is your cancellation policy?", "Full refund up to 60 days before the retreat. 50% refund 30–60 days out. No refunds within 30 days, though your spot can be transferred."],
+  ],
+};
+
 const retreats = [
+  tulumThreeNight,
   {
     id: 10,
     group: "ascension-weekend",
